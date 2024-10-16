@@ -25,8 +25,8 @@ class location: # class for each location on the map
 def initialise_locations():
     locations = {}
     file_data = read_file("location_descriptions.txt")
-    exits = {}
     for data in file_data:
+        exits = {} # moved exits here
         if len(data) > 3: # meaning some exits exist
             i = 2 # the first exit will be at index 2
             while i < len(data)-1:
@@ -36,7 +36,7 @@ def initialise_locations():
     return locations
 
 def is_valid_exit(l, e): # given the name of the current location, is the chosen exit valid?
-    if e in locations[l].exits.keys():
+    if l in locations and e in locations[l].exits.keys():
         return True
     return False
 
