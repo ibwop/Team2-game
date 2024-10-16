@@ -1,0 +1,19 @@
+Central Bar // PUB // south // Cardiff Queen St // west // North Junction // description for central bar
+North Junction // JUNCTION // west // Live Lounge // south // Arcade // east // Central Bar // description for north junction
+Live Lounge // PUB // east // North Junction // west // Cardiff Castle // description for Live Lounge
+Cardiff Castle // COMBAT // east // Live Lounge // south // The Gatekeeper // description for Cardiff Castle
+Arcade // JUNCTION // west // Boots // east // Primark // north // North Junction // south // Museum // description for Arcade
+Boots // SHOP // east // Arcade // description for Boots
+Primark // SHOP // west // Arcade // description for Primark
+The Gatekeeper // PUB // north // Cardiff Castle // south // Principality Stadium // description for The Gatekeeper
+Cardiff Queens St // STATION // north // Central Bar // south // TGI Fridays // west // Museum // train // Cardiff Central // description for Cardiff Queens St
+Museum // COMBAT // north // Arcade // east // Cardiff Queens St // south // South Junction // west // Glassworks // description for Museum
+Glassworks // PUB // north // Museum // south // Chippy Ln // west // Principality Stadium // description for Glassworks
+Principality Stadium // COMBAT // north // The Gatekeeper // east // Glassworks // south // JOMEC // description for Principality Stadium
+TGI Fridays // SHOP // north // Cardiff Queens St // south // Kiwis // west // South Junction // description for TGI Fridays
+South Junction // JUNCTION // north // Museum // east // TGI Fridays // south // Chippy Ln // description for South Junction
+Chippy Ln // SHOP // north // Glassworks // east // South Junction // west // JOMEC // description for Chippy Ln
+JOMEC // COMBAT // north // Principality Stadium // east // Chippy Ln // south // Prince Of Wales // description for JOMEC
+Kiwis // PUB // north // Chippy Ln // east // TGI Fridays // west // Prince Of Wales // description for Kiwis
+Prince Of Wales // PUB // east // Kiwis // south // Cardiff Central // west // JOMEC // description for Prince Of Wales
+Cardiff Central // STATION // north // JOMEC // east // Prince Of Wales // train // Cardiff Queens St // description for Cardiff Central
