@@ -1,5 +1,7 @@
-Health // How fast a player loses health
-Drunkenness // How fast a player becomes drunk
-Strength // How easy it is for a player to overcome an enemy
-Luck // Effects the likelihood of receiving certain perks, or facing certain enemies
-Charisma // UNSURE?
+# FORMAT - name // description // initial_value
+
+Health // How fast a player loses health // 100
+Drunkenness // How fast a player becomes drunk // 0
+Strength // How easy it is for a player to overcome an enemy // 100
+Luck // Effects the likelihood of receiving certain perks, or facing certain enemies // 50
+Charisma // UNSURE? // 50
