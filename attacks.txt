@@ -1,0 +1,6 @@
+punched // 5
+kicked // 7
+headbutted // 10
+elbowed // 6
+burnt // 9
+stabbed // 24

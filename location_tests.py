@@ -1,8 +1,8 @@
 import unittest
+from unittest.mock import patch
 from items import *
 from file_manager import *
 from map import location, initialise_locations  
-from unittest.mock import patch
 
 class TestLocation(unittest.TestCase):
     
@@ -40,6 +40,7 @@ class TestLocation(unittest.TestCase):
         self.assertEqual(loc_obj.events, [])  # Events should be empty by default
 
     def test_is_empty_method(self):
+        """Tests that the is empty method correctly recognises when events completed"""
         # Create a location instance for testing the is_empty method
         loc_obj = location("Test Location", "JUNCTION", {"north": "Next Location"}, "A test location.")
         self.assertTrue(loc_obj.is_empty())  # Should be True with no events
