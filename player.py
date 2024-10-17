@@ -35,9 +35,7 @@ class Health:
 
         # Print attack message to menu
         print(f"You have been {attack_name} for {damage_amount} damage. Your health is now {self.health}")
-
         
-
 class stat:
     def __init__(self, n, d):
         self.name = n
@@ -57,8 +55,26 @@ def initialise_stats():
         stats[line[0]] = stat(line[0], line[1])
     return stats
 
-current_location = locations["Central Bar"] # stores player's current location, starting with Central Bar
+class Player:
+    def __init__(self):
+        self.health = Health()
+        self.stats = self.initialise_stats()
+        self.current_location = locations["Central Bar"]  # Starting location
+        self.inventory = [items_list["Rubber Chicken"]]  # Starting inventory
 
-inventory = [items_list["Rubber Chicken"]] # stores the items a player currently holds
-                 
-stats = initialise_stats()
+    def initialise_stats(self):
+        data = read_file("stats_descriptions.txt")
+        stats = {}
+        for line in data:
+            stats[line[0]] = stat(line[0], line[1])
+        return stats
+
+    def allocate_points(self):
+        # The user can choose which stats to favor
+        pass
+
+    def add_to_inventory(self, item):
+        if item not in items_list:
+            raise KeyError("Item doesn't exist")
+        self.inventory.append(items_list[item])
+        print(f"{item} has been added to your inventory.")
