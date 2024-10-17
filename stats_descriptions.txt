@@ -1,5 +1,5 @@
 Health // How fast a player loses health
 Drunkenness // How fast a player becomes drunk
-Strength // Increases players base damage
+Strength // How easy it is for a player to overcome an enemy
 Luck // Effects the likelihood of receiving certain perks, or facing certain enemies
-Charisma // Reduces the cost of items in shops
+Charisma // UNSURE?
