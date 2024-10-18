@@ -1,5 +1,6 @@
 from items import *
 from file_manager import *
+from player import *
 
 # location_descriptions.txt FORMAT:
 # name // TYPE // exit_1 // leads_to_1 // ... // exit_n // leads_to_n // description
@@ -21,6 +22,16 @@ class location: # class for each location on the map
         if len(self.events) > 0:
             return False
         return True
+    
+    def print_exits(self):
+        for ex in self.exits.keys():
+            if ex == "train":
+                print("TAKE TRAIN to", self.exits[ex])
+            else:
+                print("GO", ex.upper(), "to", self.exits[ex])
+    
+    def go_inside(self):
+        print("You are now inside", self.name)
 
 class pub(location): 
     def __init__(self, n, t, e, d):
@@ -43,6 +54,27 @@ class pub(location):
                 print("£" + str(item.price), "|", item.name)
             elif item.type == "DRINK":
                 print("£" + str(item.price), "|", item.name, "(" + str(item.alcohol_units), "units)")
+    
+    def go_inside(self):
+        self.print_menu()
+        print("or LEAVE")
+    
+    def execute_inside(self, inp, money):
+        inp = " ".join(inp)
+        for item in self.menu.values():
+            if inp == item.name.lower():
+                if money >= item.price:
+                    item.consume()
+                    # update time based on a wait time and consumption time
+                    return -item.price, False
+                else:
+                    print("You cannot afford this.")
+                return 0, False
+        if inp == "leave":
+            return 0, True
+        else:
+            print("Item not available.")
+            return 0, False
                 
 class shop(location):
     def __init__(self, n, t, e, d):
@@ -58,6 +90,26 @@ class shop(location):
     def print_menu(self):
         for item in self.menu.values():
             print("£" + str(item.price), "|", item.name.upper(), "-", item.description)
+    
+    def go_inside(self):
+        self.print_menu()
+        print("or LEAVE")
+    
+    def execute_inside(self, inp, money):
+        inp = " ".join(inp)
+        for item in self.menu.values():
+            if inp == item.name.lower():
+                if money >= item.price:
+                    item.buy()
+                    return -item.price, False, item
+                else:
+                    print("You cannot afford this.")
+                return 0, False, None
+        if inp == "leave":
+            return 0, True, None
+        else:
+            print("Item not available.")
+            return 0, False, None
 
 class combat(location):
     def __init__(self, n, t, e, d):
@@ -74,26 +126,35 @@ class station(location):
 class drink:
     def __init__(self, n, p):
         self.name = n
-        self.price = p
+        self.price = float(p)
         self.type = "DRINK"
-        self.alcohol_units = read_file_where("drinks.txt", n)[1] # dictates how drunk the player will get after consumption
+        self.alcohol_units = float(read_file_where("drinks.txt", n)[1]) # dictates how drunk the player will get after consumption
+    
+    def consume(self):
+        print("DRINKING", self.name)
 
 class food:
     def __init__(self, n, p):
         self.name = n
-        self.price = p
+        self.price = float(p)
         self.type = "FOOD"
-        self.sustinance = read_file_where("foods.txt", n)[1] # dictates how much health a player will gain / how much drunkenness the player will lose
+        self.sustinance = float(read_file_where("foods.txt", n)[1]) # dictates how much health a player will gain / how much drunkenness the player will lose
+    
+    def consume(self):
+        print("EATING", self.name)
 
 class shop_item:
     def __init__(self, n):
         self.name = n
         data = read_file_where("shop_items.txt", n)
-        self.price = data[1]
+        self.price = float(data[1])
         self.use = data[2]
-        self.amount = data[3]
+        self.amount = float(data[3])
         self.description = data[4]
-        self.num_uses = data[5]
+        self.num_uses = int(data[5])
+    
+    def buy(self):
+        print("You have bought", self.name)
     
     # potential uses of items
     # REDUCE DRUNKENNES, INCREASE HEALTH, INCREASE LUCK, ...
@@ -121,9 +182,9 @@ def initialise_locations():
         locations[line[0]] = new_loc
     return locations
 
-def is_valid_exit(l, e): # given the name of the current location, is the chosen exit valid?
-    if l in locations and e in locations[l].exits.keys():
+def is_valid_exit(l, e): # given the current location, is the chosen exit valid?
+    if e in l.exits.keys():
         return True
     return False
 
-locations = initialise_locations() # dict of all location objects, indexed by name
+locations = initialise_locations()

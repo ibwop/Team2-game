@@ -2,7 +2,7 @@
 
 Medicine // 7.5 // INC_HEALTH // 10 // Drink the medicine to increase health // 5
 
-T-shirt // 3 // NONE // 0 // Wear the T-shirt to get into pubs // -1
+Tshirt // 3 // NONE // 0 // Wear the T-shirt to get into pubs // -1
 
 Coat // 20 // INC_STRENGTH // 10 // Wear this coat to increase your strength // -1
 

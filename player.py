@@ -1,6 +1,7 @@
 from map import *
 from items import *
 from file_manager import *
+import random
 
 class Health:
     def __init__(self):
@@ -36,24 +37,18 @@ class Health:
         # Print attack message to menu
         print(f"You have been {attack_name} for {damage_amount} damage. Your health is now {self.health}")
         
-class stat:
-    def __init__(self, n, d):
+class stat: # float between 0 and 1, used as a multiplier in calculations
+    def __init__(self, n, d, sv):
         self.name = n
         self.description = d
-        self.points = 1 # initial value for each stat (users will allocate an amount of points to some stats)
+        self.points = float(sv) # initial value for each stat (users will allocate an amount of points to some stats)
     
     def inc_points(self, amount): # used if the user chooses to favour this stat
         self.points += amount
-
-def allocate_points(): # the user can choose which stats to favour
-    pass
-
-def initialise_stats():
-    data = read_file("stats_descriptions.txt")
-    stats = {}
-    for line in data:
-        stats[line[0]] = stat(line[0], line[1])
-    return stats
+        if self.points > 1:
+            self.points = 1
+        elif self.points < 0.01:
+            self.points = 0.01
 
 class Player:
     def __init__(self):
@@ -61,12 +56,13 @@ class Player:
         self.stats = self.initialise_stats()
         self.current_location = locations["Central Bar"]  # Starting location
         self.inventory = [items_list["Rubber Chicken"]]  # Starting inventory
+        self.money = 20
 
     def initialise_stats(self):
         data = read_file("stats_descriptions.txt")
         stats = {}
         for line in data:
-            stats[line[0]] = stat(line[0], line[1])
+            stats[line[0]] = stat(line[0], line[1], line[2])
         return stats
 
     def allocate_points(self):
@@ -75,6 +71,41 @@ class Player:
 
     def add_to_inventory(self, item):
         if item not in items_list:
-            raise KeyError("Item doesn't exist")
-        self.inventory.append(items_list[item])
-        print(f"{item} has been added to your inventory.")
+            if self.current_location.type == "SHOP":
+                self.inventory.append(item)
+            else:
+                raise KeyError("Item doesn't exist")
+        else:
+            self.inventory.append(items_list[item])
+            print(f"{item} has been added to your inventory.")
+    
+    def print_inventory(self):
+        print("You have:")
+        for item in self.inventory:
+            print(item.name)
+    
+    def update_money(self, amount):
+        self.money += amount
+    
+    def print_money(self):
+        print("You have: £" + str(self.money))
+    
+    def move_location(self, direction):
+        self.current_location = locations[self.current_location.exits[direction]]
+    
+    def get_travel_time(self, action_word):
+        if action_word == "take":
+            delay_time = 0
+            if random.randint(1,100) > 100 * self.stats["Luck"].points: # there will be a delay
+                delay_time = random.randint(1,10)
+                print("Your train was delayed by", delay_time, "minutes.")
+            return 4 + delay_time # 4 mins is the normal train time
+        else:
+            walk_time = random.uniform(3,5) * self.stats["Drunkenness"].points - random.uniform(0,2) * self.stats["Health"].points - random.uniform(0,1) * self.stats["Strength"].points
+            if walk_time > 1:
+                walk_time = 1
+            elif walk_time < 0.1:
+                walk_time = 0.1
+            walk_time = round(walk_time * 15)
+            print("The walk took you", walk_time, "minutes.")
+            return walk_time
