@@ -1,6 +1,6 @@
 # FORMAT - name // description // starting_value
 
-Health // How fast a player loses health // 1
+Health // How fast a player loses health // 0.5
 
 Drunkenness // How fast a player becomes drunk // 0.5
 
