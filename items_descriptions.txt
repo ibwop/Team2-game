@@ -14,6 +14,16 @@ Barmaid's Charm // Boosts charisma during chat with barmaid // central bar // 0
 Golden Coin // Can be exchanged for a free drink // central bar // 0
 Leprechaun's Liquor // Boosts luck // central bar // 0
 
+Moldy Wetherspoons Wrap // Just a moldy wrap, why would you want this? // the gatekeeper // 0
+Daylight Savings Brew // Turns back time an hour // the gatekeeper // 0
+Bartender's Coaster // Doubles effect of drink drunk on it // the gatekeeper // 0
+
+Clearance Protein // Boosts strength // primark/boots // 0
+
+Rugby Ball // Distracts rugby players // principality // 0
+Scrum Cap // doubles headbutt damage // principality // 15
+Togs // Kicks are brutal // principality // 12
+Energy Drink // Makes the player super fast, saves time when moving // principality // 0
 
 
 
@@ -30,6 +40,30 @@ Leprechaun's Liquor // Boosts luck // central bar // 0
 
 
 
-Rugby Ball // Distracts rugby players // principality
+
+
+
+
+
+Ring of fire
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
