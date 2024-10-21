@@ -11,7 +11,7 @@ class item:
         #self.damage = dam
 
 def initialise_items():
-    data = read_file("items_descriptions.txt")
+    data = read_file("text/items_descriptions.txt")
     items = {}
     for i in data:
         items[i[0]] = item(i[0], i[1]) # i[2], i[3])

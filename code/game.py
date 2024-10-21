@@ -10,7 +10,7 @@ def initialise_variables():
     global locations
     locations = map.initialise_locations()
     
-    import player
+    import player_class
     
     global time
     time = [19,0]
@@ -19,7 +19,11 @@ def initialise_variables():
     global inside
     inside = False # stores whether the player is inside a building or on the street
     global player
-    player = player.Player()
+    player = player_class.Player()
 
 def print_random():
     print("GAME")
+
+def initialise_game():
+    player.allocate_points()
+    return player
