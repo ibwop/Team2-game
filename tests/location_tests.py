@@ -1,8 +1,6 @@
 import unittest
 from unittest.mock import patch
-from items import *
-from file_manager import *
-from map import location, initialise_locations  
+
 
 class TestLocation(unittest.TestCase):
     

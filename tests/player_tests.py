@@ -1,8 +1,6 @@
 import unittest
 from unittest.mock import patch
-from items import *
-from file_manager import * 
-from player import *
+from code import *
 
 @patch('file_manager.read_file') 
 class TestPlayer(unittest.TestCase):

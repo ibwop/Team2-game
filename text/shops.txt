@@ -1,0 +1,9 @@
+# FORMAT - name // item_1 // ... // item_n
+
+Boots // Medicine
+
+Primark // Tshirt // Coat // Trousers // Hoodie
+
+TGI Fridays // Burger
+
+Chippy Ln // Kebab
