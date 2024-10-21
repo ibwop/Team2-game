@@ -34,3 +34,44 @@ Ring of Fire // Extremely strong drink, boosts drunkness // glassworks // 0
 Fermented Fossil // Throw at an enemy, single use // Museum // 20
 Echoing Bell // Loud enought to burst some ear drums // Museum // 15
 Magic Dice // Roll between 10 - 20 does that much damage // Museum // 0
+
+Old Lottery Ticket // Gives you a random amount of money between (IDK) // chippy lane  // 0
+Broken Phone Charger // Shocks the enemy // chippy lane // 0
+Fishnet // Traps the enemy ( or does x amount of damage) // chippy lane // 
+
+Vip ticket // Shows your a vip, gives money // tgi fridays // 0
+Umbrella Straw // Shove in enemies eye, single use // tgi fridays // 20
+Charity Donation Jar // A moral dilemma, steal or not steal? // tgi fridays // 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
