@@ -39,7 +39,7 @@ class Pub(location):
         location.__init__(self, name, loc_type, exits, description)
         
         # Read pub data from file (format: name // queue_time // item_1 // price_1 // ... // item_n // price_n)
-        pub_data = read_file_where(r"..\text\pubs.txt", name)
+        pub_data = read_file_where("text/pubs.txt", name)
         
         # set queue time (in minutes)
         self.queue_time = int(pub_data[1])
@@ -101,7 +101,7 @@ class Pub(location):
 class shop(location):
     def __init__(self, n, t, e, d):
         location.__init__(self, n, t, e, d)
-        data = read_file_where(r"..\text\shops.txt", n)
+        data = read_file_where("text/shops.txt", n)
         menu = {}
         i = 1
         while i < len(data):
@@ -136,7 +136,7 @@ class shop(location):
 class combat(location):
     def __init__(self, n, t, e, d):
         location.__init__(self, n, t, e, d)
-        data = read_file(os.path.join(r"..\combat_descriptions", self.name + ".txt"))
+        data = read_file(os.path.join("combat_descriptions", self.name + ".txt"))
         self.fight_description = data[0]
         self.enemy = enemy(data[1], data[2])
         self.weapons = []
@@ -183,7 +183,7 @@ class drink:
         self.name = n
         self.price = float(p)
         self.type = "DRINK"
-        self.alcohol_units = float(read_file_where(r"..\text\drinks.txt", n)[1]) # dictates how drunk the player will get after consumption
+        self.alcohol_units = float(read_file_where("text/drinks.txt", n)[1]) # dictates how drunk the player will get after consumption
     
     def consume(self):
         print("DRINKING", self.name)
@@ -193,7 +193,7 @@ class food:
         self.name = n
         self.price = float(p)
         self.type = "FOOD"
-        self.sustinance = float(read_file_where(r"..\text\foods.txt", n)[1]) # dictates how much health a player will gain / how much drunkenness the player will lose
+        self.sustinance = float(read_file_where("text/foods.txt", n)[1]) # dictates how much health a player will gain / how much drunkenness the player will lose
     
     def consume(self):
         print("EATING", self.name)
@@ -201,7 +201,7 @@ class food:
 class shop_item:
     def __init__(self, n):
         self.name = n
-        data = read_file_where(r"..\text\shop_items.txt", n)
+        data = read_file_where("text\shop_items.txt", n)
         self.price = float(data[1])
         self.use = data[2]
         self.amount = float(data[3])
@@ -216,7 +216,7 @@ class shop_item:
 
 def initialise_locations():
     locations = {}  # dictionary to store locations
-    data = read_file(r"..\text\location_descriptions.txt")
+    data = read_file("text/location_descriptions.txt")
 
     for line in data:
         exits = {}  # initiase exits for each location

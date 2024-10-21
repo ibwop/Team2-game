@@ -11,7 +11,7 @@ class Health:
         self.health += amount
 
     def load_attacks(self):
-        attacks_data = read_file(r"..\text\attacks.txt")
+        attacks_data = read_file("text/attacks.txt")
         attacks = {}
 
         for attack_info in attacks_data:
@@ -41,6 +41,7 @@ class Stat:  # float between 0 and 1, used as a multiplier in calculations
         self.name = n
         self.description = d
         self.points = float(sv)  # initial value for each stat (users will allocate an amount of points to some stats)
+        self.initial_value = float(sv)
 
     def inc_points(self, amount):  # used if the user chooses to favour this stat
         potential_new_value = self.points + amount
@@ -52,6 +53,9 @@ class Stat:  # float between 0 and 1, used as a multiplier in calculations
         else:
             self.points = potential_new_value
             return 0  # No excess points
+        
+    def reset(self):
+        self.points = self.initial_value
 
 class Player:
     def __init__(self):
@@ -65,7 +69,7 @@ class Player:
         self.allocate_points()
 
     def initialise_stats(self):
-        data = read_file(r"..\text\stats_descriptions.txt")
+        data = read_file("text/stats_descriptions.txt")
         stats = {}
         for line in data:
             stats[line[0]] = Stat(line[0], line[1], line[2])
@@ -97,6 +101,8 @@ class Player:
             elif chosen_stat == 'cancel':
                 print("Exiting point allocation.")
                 return
+            elif {self.stats[chosen_stat].points} == 1:
+                print("This stat is maxed out, enter another stat")
             
             # Validate that stat exists immediately after input
             if chosen_stat not in self.stats.keys() or chosen_stat == "drunkenness":
@@ -126,7 +132,7 @@ class Player:
 
     def reset_allocation(self):
         for stat in self.stats.values():
-            stat.points = float(stat.points)  # Reset to starting value
+            stat.reset()
         self.available_points = 1  # Reset available points
         self.total_allocated_points = 0  # Reset total allocated points
         print("All points have been reset.")
