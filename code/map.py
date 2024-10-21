@@ -76,6 +76,7 @@ class Pub(location):
                 print("£" + str(item.price), "|", item.name)
             elif item.type == "DRINK":
                 print("£" + str(item.price), "|", item.name, "(" + str(item.alcohol_units), "units)")
+
     
     def go_inside(self):
         self.print_menu()

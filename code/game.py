@@ -1,3 +1,5 @@
+import random
+
 def initialise_variables():
     
     import items

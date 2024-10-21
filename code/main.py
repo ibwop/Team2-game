@@ -4,8 +4,8 @@
 import game
 game.initialise_variables()
 from map import *
-from player_class import *
 from items import *
+from player_class import *
 import string
 
 def update_time(mins):
@@ -107,9 +107,12 @@ def execute_inside(inp):
         game.player.update_money(amount)
         if go_outside:
             done_inside()
+            
 
 def main():
+    game.initialise_game()
     while True:
+        game.trigger_encounter()
         if not game.inside:
             print_menu()
             

@@ -101,7 +101,7 @@ class Player:
             elif chosen_stat == 'cancel':
                 print("Exiting point allocation.")
                 return
-            elif {self.stats[chosen_stat].points} == 1:
+            elif {self.stats[chosen_stat].points} == 1: # 1 is max points
                 print("This stat is maxed out, enter another stat")
             
             # Validate that stat exists immediately after input
@@ -116,7 +116,7 @@ class Player:
                 print("Please enter a valid number for the increment.")
                 continue                  
 
-            if increment <= self.available_points:
+            if increment <= self.available_points: # if the increment is higher than our points
                 error_message = self.stats[chosen_stat].inc_points(increment)
                 if isinstance(error_message, str):  # Check if an error message was returned
                     print(error_message)  # Print the error message
