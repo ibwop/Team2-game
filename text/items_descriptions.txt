@@ -23,4 +23,12 @@ Clearance Protein // Boosts strength // primark/boots // 0
 Rugby Ball // Distracts rugby players // principality // 0
 Scrum Cap // doubles headbutt damage // principality // 15
 Togs // Kicks are brutal // principality // 12
-Energy Drink // Makes the player super fast, saves time when moving // principality // 
+Energy Drink // Makes the player super fast, saves time when moving // principality // 0
+
+Glass Slipper's // Boosts charisma // glassworks // 0
+Glass rose // Can woo a barmaid // glassworks // 0
+Glass gauntlet // Boosts strength, very fragile // glassworks // 0
+Glass Knuckles // One time use, very deadly // glassworks // 25
+Ring of Fire // Extremely strong drink, boosts drunkness // glassworks // 0
+
+Fermented Fossil // Throw at an enemy, single use // Museum // 20
