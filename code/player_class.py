@@ -1,5 +1,4 @@
-from map import *
-from items import *
+from game import *
 from file_manager import *
 import random
 
@@ -12,7 +11,7 @@ class Health:
         self.health += amount
 
     def load_attacks(self):
-        attacks_data = read_file("text/attacks.txt")  
+        attacks_data = read_file(r"..\text\attacks.txt")
         attacks = {}
 
         for attack_info in attacks_data:
@@ -63,9 +62,10 @@ class Player:
         self.money = 20
         self.available_points = 1
         self.total_allocated_points = 0
+        self.allocate_points()
 
     def initialise_stats(self):
-        data = read_file("text/stats_descriptions.txt")
+        data = read_file(r"..\text\stats_descriptions.txt")
         stats = {}
         for line in data:
             stats[line[0]] = Stat(line[0], line[1], line[2])
@@ -147,7 +147,7 @@ class Player:
             print(item.name)
     
     def update_money(self, amount):
-        self.money += amount
+        self.money = round(self.money + amount, 2)
     
     def print_money(self):
         print("You have: £" + str(self.money))
@@ -169,11 +169,7 @@ class Player:
                 print("Your train was delayed by", delay_time, "minutes.")
             return 4 + delay_time  # 4 mins is the normal train time
         else:
-            walk_time = random.uniform(3, 5) * self.stats["drunkenness"].points - random.uniform(0, 2) * self.stats["health"].points - random.uniform(0, 1) * self.stats["strength"].points
-            if walk_time > 1:
-                walk_time = 1
-            elif walk_time < 0.1:
-                walk_time = 0.1
-            walk_time = round(walk_time * 15)
+            walk_time = 1 + 4 * (1500 / (self.stats["health"].points * self.stats["strength"].points))**(0.1 * self.stats["drunkenness"].points)
+            walk_time = round(walk_time)
             print("The walk took you", walk_time, "minutes.")
             return walk_time

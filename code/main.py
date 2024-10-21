@@ -4,8 +4,8 @@
 import game
 game.initialise_variables()
 from map import *
-from items import *
 from player_class import *
+from items import *
 import string
 
 def update_time(mins):
@@ -109,7 +109,6 @@ def execute_inside(inp):
             done_inside()
 
 def main():
-    game.initialise_game()
     while True:
         if not game.inside:
             print_menu()
