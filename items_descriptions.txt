@@ -23,47 +23,4 @@ Clearance Protein // Boosts strength // primark/boots // 0
 Rugby Ball // Distracts rugby players // principality // 0
 Scrum Cap // doubles headbutt damage // principality // 15
 Togs // Kicks are brutal // principality // 12
-Energy Drink // Makes the player super fast, saves time when moving // principality // 0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Ring of fire
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Energy Drink // Makes the player super fast, saves time when moving // principality // 
