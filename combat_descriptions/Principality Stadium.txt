@@ -1,0 +1,7 @@
+description
+
+Rugby Player // info // 100
+
+30 // CLOSE
+
+Rugby Ball // 5 // FAR // False // Studded Boots // 15 // CLOSE // False

@@ -1,0 +1,7 @@
+desc of fight
+
+Security Guard // info // 50
+
+10 // CLOSE
+
+Fossil // 5 // FAR // False

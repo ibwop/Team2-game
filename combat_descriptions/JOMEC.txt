@@ -1,0 +1,7 @@
+description
+
+Lecturer // info // 25
+#drop books off balcony
+5 // FAR
+
+Laptop Charger // 20 // CLOSE // False
