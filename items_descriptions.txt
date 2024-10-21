@@ -1,18 +1,29 @@
-## format Item name // Description // Location found
+## format Item name // Description // Location found // Damage
 
-Scroll of Wisdom // Gives the player a clue on what to do next // cardiff castle
-Invisibility Cloak // Can sneak past enemies // cardiff castle
-Vial of Essence // Boost player stats // cardiff castle
-Magic Crystal // Teleports player to chosen location // cardiff castle
-Frozen Flute // Plays a melody that will freeze enemies // cardiff castle
+Scroll of Wisdom // Gives the player a clue on what to do next // cardiff castle // 0
+Invisibility Cloak // Can sneak past enemies // cardiff castle // 0
+Vial of Essence // Boost player stats // cardiff castle // 0
+Magic Crystal // Teleports player to chosen location // cardiff castle // 0 
+Frozen Flute // Plays a melody that will freeze enemies // cardiff castle // ?
 
-Rubber Chicken // description for Rubber Chicken // live lounge
-Live Lounge Barcode // Discount for drinks // live lounge
-Used Straw // Allows player to shoot spit at enemies, blinds them // live lounge
+Rubber Chicken // Quacks loudly distracting enemies // live lounge // 0
+Live Lounge Barcode // Discount for drinks // live lounge //0
+Used Straw // Allows player to shoot spit at enemies, blinds them // live lounge // 3
 
-Barmaid's Charm // Boosts charisma during chat with barmaid // central bar
-Golden Coin // Can be exchanged for a free drink // central bar
-Leprechaun's Liquor // Boosts luck // central bar
+Barmaid's Charm // Boosts charisma during chat with barmaid // central bar // 0
+Golden Coin // Can be exchanged for a free drink // central bar // 0
+Leprechaun's Liquor // Boosts luck // central bar // 0
+
+Moldy Wetherspoons Wrap // Just a moldy wrap, why would you want this? // the gatekeeper // 0
+Daylight Savings Brew // Turns back time an hour // the gatekeeper // 0
+Bartender's Coaster // Doubles effect of drink drunk on it // the gatekeeper // 0
+
+Clearance Protein // Boosts strength // primark/boots // 0
+
+Rugby Ball // Distracts rugby players // principality // 0
+Scrum Cap // doubles headbutt damage // principality // 15
+Togs // Kicks are brutal // principality // 12
+Energy Drink // Makes the player super fast, saves time when moving // principality // 0
 
 
 
@@ -24,6 +35,35 @@ Leprechaun's Liquor // Boosts luck // central bar
 
 
 
-Rugby Ball // Distracts rugby players // principality
+
+
+
+
+
+
+
+
+
+
+Ring of fire
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
