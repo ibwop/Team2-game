@@ -1,6 +1,5 @@
 from items import *
 from file_manager import *
-from player import *
 
 # location_descriptions.txt FORMAT:
 # name // TYPE // exit_1 // leads_to_1 // ... // exit_n // leads_to_n // description
@@ -33,20 +32,42 @@ class location: # class for each location on the map
     def go_inside(self):
         print("You are now inside", self.name)
 
-class pub(location): 
-    def __init__(self, n, t, e, d):
-        location.__init__(self, n, t, e, d)
-        data = read_file_where("pubs.txt", n) # FORMAT - name // queue_time (mins) // item_1 // price_1 // ... // item_n // price_n
-        self.queue_time = int(data[1])
+class Pub(location): 
+    def __init__(self, name, loc_type, exits, description):
+        # Initialize the location base class
+        location.__init__(self, name, loc_type, exits, description)
+        
+        # Read pub data from file (format: name // queue_time // item_1 // price_1 // ... // item_n // price_n)
+        pub_data = read_file_where("pubs.txt", name)
+        
+        # set queue time (in minutes)
+        self.queue_time = int(pub_data[1])
+
+        # initialize the pub's menu
+        self.menu = self._initialize_menu(pub_data[2:])
+
+    def _initialize_menu(self, data):
+        """ Helper function to initialize the pub menu. """
         menu = {}
-        i = 2
-        while i < len(data)-1:
-            if data[i+2] == "DRINK":
-                menu[data[i]] = drink(data[i], float(data[i+1]))
-            elif data[i+2] == "FOOD":
-                menu[data[i]] = food(data[i], float(data[i+1]))
-            i += 3
-        self.menu = menu
+        index = 0
+        
+        # Process each item from the data
+        while index < len(data) - 2:
+            item_name = data[index]
+            item_price = float(data[index + 1])
+            item_type = data[index + 2]
+            
+            # Add either a drink or food item to the menu based on type
+            if item_type == "DRINK":
+                menu[item_name] = drink(item_name, item_price)
+            elif item_type == "FOOD":
+                menu[item_name] = food(item_name, item_price)
+
+            # Move to the next item (each item block consists of 3 elements: name, price, type)
+            index += 3
+        
+        return menu
+
     
     def print_menu(self):
         for item in self.menu.values():
@@ -160,26 +181,40 @@ class shop_item:
     # REDUCE DRUNKENNES, INCREASE HEALTH, INCREASE LUCK, ...
 
 def initialise_locations():
-    locations = {}
-    data = read_file("location_descriptions.txt")
+    locations = {}  # dictionary to store locations
+    data = read_file("location_descriptions.txt") 
+
     for line in data:
-        exits = {} # moved exits here
-        if len(line) > 3: # meaning some exits exist
-            i = 2 # the first exit will be at index 2
-            while i < len(line)-1:
-                exits[line[i]] = line[i+1]
+        exits = {}  # initiase exits for each location
+
+        location_id = line[0] 
+        location_type = line[1]  # (e.g. PUB, SHOP)
+        description = line[-1] 
+        
+        # If there are exits 
+        if len(line) > 3:
+            i = 2  # Exits start at index 2
+            while i < len(line) - 1:
+                direction = line[i]  # direction of exit
+                destination = line[i + 1]  # destination the exit leads to
+                exits[direction] = destination  # map direction to destination
                 i += 2
-        if line[1] == "PUB":
-            new_loc = pub(line[0], line[1], exits, line[len(line)-1])
-        elif line[1] == "SHOP":
-            new_loc = shop(line[0], line[1], exits, line[len(line)-1])
-        elif line[1] == "COMBAT":
-            new_loc = combat(line[0], line[1], exits, line[len(line)-1])
-        elif line[1] == "JUNCTION":
-            new_loc = junction(line[0], line[1], exits, line[len(line)-1])
-        elif line[1] == "STATION":
-            new_loc = station(line[0], line[1], exits, line[len(line)-1])
-        locations[line[0]] = new_loc
+
+        # ceate location type based on the value of location_type
+        if location_type == "PUB":
+            new_loc = Pub(location_id, location_type, exits, description)
+        elif location_type == "SHOP":
+            new_loc = shop(location_id, location_type, exits, description)
+        elif location_type == "COMBAT":
+            new_loc = combat(location_id, location_type, exits, description)
+        elif location_type == "JUNCTION":
+            new_loc = junction(location_id, location_type, exits, description)
+        elif location_type == "STATION":
+            new_loc = station(location_id, location_type, exits, description)
+
+        # add new location to the locations dictionary
+        locations[location_id] = new_loc
+
     return locations
 
 def is_valid_exit(l, e): # given the current location, is the chosen exit valid?

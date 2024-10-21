@@ -120,7 +120,14 @@ class Player:
         print("You have: £" + str(self.money))
     
     def move_location(self, direction):
-        self.current_location = locations[self.current_location.exits[direction]]
+    #check if the direction is valid and exists in the current location's exits
+        if direction in self.current_location.exits:
+            new_location_name = self.current_location.exits[direction]
+            self.current_location = locations[new_location_name]
+            print(f"You have moved to {self.current_location.name}.")
+        else:
+             print(f"You can't go {direction} from here.")
+
     
     def get_travel_time(self, action_word):
         if action_word == "take":

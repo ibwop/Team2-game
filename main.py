@@ -1,5 +1,5 @@
 from items import *
-#from map import *
+from map import *
 from player import *
 import string
 
@@ -71,6 +71,7 @@ def execute_go(inp):
             update_time(player.get_travel_time(inp[0])) # randomise the time taken to walk between the two locations (based on stats)
             # randomise if player encounters an NPC en route
             player.move_location(inp[1])
+            print(player.current_location)
         else:
             print("Can't go there.")
     else:
