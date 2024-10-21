@@ -55,7 +55,10 @@ def remove_punct(text): #removes punctuation from the user input
 
 def take_input():    
     #take users input and make lower case
-    user_input = input("What would you like to do?\n").lower()
+    if inside:
+        user_input = input("What would you like to buy?\n").lower()
+    else:
+        user_input = input("What would you like to do?\n").lower() #prints different line when inside buying something
     
     #remove punct and white space
     user_input = remove_punct(user_input)
