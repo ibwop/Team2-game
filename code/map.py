@@ -1,5 +1,7 @@
-from items import *
+#from items import *
+from game import *
 from file_manager import *
+import os
 
 # location_descriptions.txt FORMAT:
 # name // TYPE // exit_1 // leads_to_1 // ... // exit_n // leads_to_n // description
@@ -38,7 +40,7 @@ class Pub(location):
         location.__init__(self, name, loc_type, exits, description)
         
         # Read pub data from file (format: name // queue_time // item_1 // price_1 // ... // item_n // price_n)
-        pub_data = read_file_where("text/pubs.txt", name)
+        pub_data = read_file_where("pubs.txt", name)
         
         # set queue time (in minutes)
         self.queue_time = int(pub_data[1])
@@ -80,7 +82,7 @@ class Pub(location):
         self.print_menu()
         print("or LEAVE")
     
-    def execute_inside(self, inp, money):
+    def execute_inside(self, inp, money): # returns price of item bought (or 0 if nothing), whether or not the player chose to leave the building
         inp = " ".join(inp)
         for item in self.menu.values():
             if inp == item.name.lower():
@@ -100,7 +102,7 @@ class Pub(location):
 class shop(location):
     def __init__(self, n, t, e, d):
         location.__init__(self, n, t, e, d)
-        data = read_file_where("text/shops.txt", n)
+        data = read_file_where("shops.txt", n)
         menu = {}
         i = 1
         while i < len(data):
@@ -135,6 +137,39 @@ class shop(location):
 class combat(location):
     def __init__(self, n, t, e, d):
         location.__init__(self, n, t, e, d)
+        data = read_file(os.path.join("combat_descriptions", self.name + ".txt"))
+        self.fight_description = data[0]
+        self.enemy = enemy(data[1], data[2])
+        self.weapons = []
+        i = 0
+        while i < len(data[3]):
+            self.weapons.append(weapon(data[3][i], data[3][i+1], data[3][i+2], data[3][i+3]))
+            i += 4
+        self.items_inventory = []
+    
+    def menu(self):
+        print()
+        print(self.fight_description)
+        print()
+        fighting = True
+        while fighting:
+            for item in self.items_inventory:
+                pass
+    
+class enemy:
+    def __init__(self, descriptions, weapon):
+        self.name = descriptions[0]
+        self.description = descriptions[1]
+        self.health = descriptions[2]
+        self.damage = weapon[0]
+        self.range = weapon[1]
+
+class weapon:
+    def __init__(self, n, d, r, g):
+        self.name = n
+        self.damage = d # float containing how much damage is done
+        self.range = r # text saying whether it is CLOSE or FAR range
+        self.group = g # boolean, True if it can damage multiple enemies at once
 
 class junction(location):
     def __init__(self, n, t, e, d):
@@ -149,7 +184,7 @@ class drink:
         self.name = n
         self.price = float(p)
         self.type = "DRINK"
-        self.alcohol_units = float(read_file_where("text/drinks.txt", n)[1]) # dictates how drunk the player will get after consumption
+        self.alcohol_units = float(read_file_where("drinks.txt", n)[1]) # dictates how drunk the player will get after consumption
     
     def consume(self):
         print("DRINKING", self.name)
@@ -159,7 +194,7 @@ class food:
         self.name = n
         self.price = float(p)
         self.type = "FOOD"
-        self.sustinance = float(read_file_where("text/foods.txt", n)[1]) # dictates how much health a player will gain / how much drunkenness the player will lose
+        self.sustinance = float(read_file_where("foods.txt", n)[1]) # dictates how much health a player will gain / how much drunkenness the player will lose
     
     def consume(self):
         print("EATING", self.name)
@@ -167,7 +202,7 @@ class food:
 class shop_item:
     def __init__(self, n):
         self.name = n
-        data = read_file_where("text/shop_items.txt", n)
+        data = read_file_where("shop_items.txt", n)
         self.price = float(data[1])
         self.use = data[2]
         self.amount = float(data[3])
@@ -182,7 +217,7 @@ class shop_item:
 
 def initialise_locations():
     locations = {}  # dictionary to store locations
-    data = read_file("text/location_descriptions.txt") 
+    data = read_file("location_descriptions.txt") 
 
     for line in data:
         exits = {}  # initiase exits for each location
@@ -221,5 +256,3 @@ def is_valid_exit(l, e): # given the current location, is the chosen exit valid?
     if e in l.exits.keys():
         return True
     return False
-
-locations = initialise_locations()

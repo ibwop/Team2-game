@@ -1,27 +1,27 @@
-from items import *
+#from items import *
+#from map import *
+#from player import *
+import game
+game.initialise_variables()
 from map import *
+from items import *
 from player import *
 import string
 
-time = [19,0]
-closing_time = [1,0]
-inside = False # stores whether the player is inside a building or on the street
-player = Player()
-
-def initialise_game():
-    global player
-    player.allocate_points()
-
 def update_time(mins):
-    global time
-    time[0] = int(time[0])
-    time[1] = int(time[1])
-    time[1] += mins
-    while time[1] >= 60:
-        time[0] += 1
-        time[1] -= 60
-    while time[0] >= 24:
-        time[0] -= 24
+    t = game.time
+    t[0] = int(t[0])
+    t[1] = int(t[1])
+    t[1] += mins
+    while t[1] >= 60:
+        t[0] += 1
+        t[1] -= 60
+    while t[0] >= 24:
+        t[0] -= 24
+    if t[1] < 0:
+        t[0] = 23
+        t[1] += 60
+    game.time = t
 
 def time_to_text(t):
     text = ""
@@ -33,18 +33,18 @@ def time_to_text(t):
 
 def print_menu():
     print()
-    print(player.current_location.name.upper())
+    print(game.player.current_location.name.upper())
     print()
-    print(time_to_text(time))
+    print(time_to_text(game.time))
     print()
-    print(player.current_location.description)
+    print(game.player.current_location.description)
     print()
-    player.print_money()
+    game.player.print_money()
     print()
-    player.print_inventory()
+    game.player.print_inventory()
     print()
     print("GO INSIDE")
-    player.current_location.print_exits()
+    game.player.current_location.print_exits()
 
 def remove_punct(text): #removes punctuation from the user input
     new_text = ""
@@ -55,10 +55,10 @@ def remove_punct(text): #removes punctuation from the user input
 
 def take_input():    
     #take users input and make lower case
-    if inside:
+    if game.inside and (game.player.current_location.type == "PUB" or game.player.current_location.type == "SHOP"):
         user_input = input("What would you like to buy?\n").lower()
     else:
-        user_input = input("What would you like to do?\n").lower() #prints different line when inside buying something
+        user_input = input("What would you like to do?\n").lower()
     
     #remove punct and white space
     user_input = remove_punct(user_input)
@@ -72,13 +72,12 @@ def take_input():
 def execute_go(inp):
     if len(inp) > 1:
         if inp[1] == "inside":
-            global inside
-            inside = True
-        elif is_valid_exit(player.current_location, inp[1]):
-            update_time(player.get_travel_time(inp[0])) # randomise the time taken to walk between the two locations (based on stats)
+            game.inside = True
+        elif is_valid_exit(game.player.current_location, inp[1]):
+            update_time(game.player.get_travel_time(inp[0])) # randomise the time taken to walk between the two locations (based on stats)
             # randomise if player encounters an NPC en route
-            player.move_location(inp[1])
-            print(player.current_location)
+            game.player.move_location(inp[1])
+            print(game.player.current_location.name)
         else:
             print("Can't go there.")
     else:
@@ -92,37 +91,35 @@ def execute_input(inp):
             execute_go(inp)
 
 def done_inside():
-    global inside
-    inside = False
+    game.inside = False
 
 def execute_inside(inp):
-    t = player.current_location.type
+    t = game.player.current_location.type
     if t == "PUB":
-        amount, go_outside = player.current_location.execute_inside(inp, player.money)
-        player.update_money(amount)
+        amount, go_outside = game.player.current_location.execute_inside(inp, game.player.money)
+        game.player.update_money(amount)
         if go_outside:
             done_inside()
     elif t == "SHOP":
-        amount, go_outside, item_bought = player.current_location.execute_inside(inp, player.money)
+        amount, go_outside, item_bought = game.player.current_location.execute_inside(inp, game.player.money)
         if item_bought is not None:
-            player.add_to_inventory(item_bought)
-        player.update_money(amount)
+            game.player.add_to_inventory(item_bought)
+        game.player.update_money(amount)
         if go_outside:
             done_inside()
 
 def main():
-    initialise_game()
     while True:
-        if not inside:
+        if not game.inside:
             print_menu()
             
             user_input = take_input()
             
             execute_input(user_input)
         else:
-            player.current_location.go_inside()
+            game.player.current_location.go_inside()
             
-            player.print_money()
+            game.player.print_money()
             
             user_input = take_input()
             

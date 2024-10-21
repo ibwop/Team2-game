@@ -4,21 +4,17 @@ from file_manager import *
 # name // description
 
 class item:
-    def __init__(self, n, d, l, x):
+    def __init__(self, n, d): # l, dam):
         self.name = n
         self.description = d
-        self.location = l
-        self.damage = x
+        #self.location_found = l
+        #self.damage = dam
 
 def initialise_items():
-    data = read_file("text/items_descriptions.txt")
+    data = read_file("items_descriptions.txt")
     items = {}
     for i in data:
-        try:
-            name, description, location, damage = i
-            items[name] = item(name, description, location, damage)
-        except ValueError:
-            print(f"Skipping line due to unpacking error: {i}")
+        items[i[0]] = item(i[0], i[1]) # i[2], i[3])
     return items
 
 items_list = initialise_items() # dict of all item objects, indexed by name

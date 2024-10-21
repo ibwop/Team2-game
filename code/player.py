@@ -1,18 +1,19 @@
-from map import *
-from items import *
+#from map import *
+#from items import *
+from game import *
 from file_manager import *
 import random
 
 class Health:
     def __init__(self):
-        self.health = 100  # default value
+        self.health = 100 # default value
         self.attacks = self.load_attacks()
 
     def adjust_health(self, amount):
         self.health += amount
 
     def load_attacks(self):
-        attacks_data = read_file("text/attacks.txt")  
+        attacks_data = read_file("attacks.txt")  
         attacks = {}
 
         for attack_info in attacks_data:
@@ -23,7 +24,7 @@ class Health:
                 
         return attacks
     
-    def receive_attack(self, attack_name=None):
+    def recieve_attack(self, attack_name = None):
         # Check attack exists
         if attack_name not in self.attacks:
             raise KeyError("Attack not recognised")
@@ -36,23 +37,19 @@ class Health:
 
         # Print attack message to menu
         print(f"You have been {attack_name} for {damage_amount} damage. Your health is now {self.health}")
-
-class Stat:  # float between 0 and 1, used as a multiplier in calculations
+        
+class stat: # float between 0 and 1, used as a multiplier in calculations
     def __init__(self, n, d, sv):
         self.name = n
         self.description = d
-        self.points = float(sv)  # initial value for each stat (users will allocate an amount of points to some stats)
-
-    def inc_points(self, amount):  # used if the user chooses to favour this stat
-        potential_new_value = self.points + amount
-        if potential_new_value > 1:
-            return f"Cannot increase {self.name} above 1. Current value: {self.points}, attempted increase: {amount}"
-        elif potential_new_value < 0.01:
+        self.points = float(sv) # initial value for each stat (users will allocate an amount of points to some stats)
+    
+    def inc_points(self, amount): # used if the user chooses to favour this stat
+        self.points += amount
+        if self.points > 1:
+            self.points = 1
+        elif self.points < 0.01:
             self.points = 0.01
-            return amount - (0.01 - self.points)  # Return how much wasn't allocated
-        else:
-            self.points = potential_new_value
-            return 0  # No excess points
 
 class Player:
     def __init__(self):
@@ -62,74 +59,45 @@ class Player:
         self.inventory = [items_list["Rubber Chicken"]]  # Starting inventory
         self.money = 20
         self.available_points = 1
-        self.total_allocated_points = 0
 
     def initialise_stats(self):
-        data = read_file("text/stats_descriptions.txt")
+        data = read_file("stats_descriptions.txt")
         stats = {}
         for line in data:
-            stats[line[0]] = Stat(line[0], line[1], line[2])
+            stats[line[0]] = stat(line[0], line[1], line[2])
         return stats
 
     def allocate_points(self):
-        print("Choose your character's stats:")
-        
-        # Print stat descriptions once before allocating points
-        print("\nStat Descriptions:")
-        for stat_name, stat_obj in self.stats.items():
-            print(f"{stat_name}: {stat_obj.description} (Starting Value: {stat_obj.points})")
-        
-        print()  # Extra line for better spacing
-
+        # while there are points available
         while self.available_points > 0:
-            print(f"You have {self.available_points} point left to allocate")
-            print(f"Total allocated points: {self.total_allocated_points}")
-            print()
+            print(f"You have {self.available_points} left to allocate")
+            # loop through stats, print name and points
             for stat_name, stat_obj in self.stats.items():
                 print(f"{stat_name}: {stat_obj.points}")
+            # print a clear line
             print()
-
-            chosen_stat = input("Which stat would you like to increase? (Type 'reset' to reset points or 'cancel' to cancel) ").strip().lower()
-            
-            if chosen_stat == 'reset':
-                self.reset_allocation()
-                continue
-            elif chosen_stat == 'cancel':
-                print("Exiting point allocation.")
-                return
-            
-            # Validate that stat exists immediately after input
-            if chosen_stat not in self.stats.keys() or chosen_stat == "drunkenness":
+            # get desired stat to increase
+            chosen_stat = input("Which stat would you like to increase?")
+            # validate that stat exists
+            if chosen_stat not in self.stats.keys():
                 print("Invalid stat")
                 continue
-
-            # Get the amount to increment (catch non-float input)
+            # get the amount to increment (catch non float input)
             try:
-                increment = float(input("How many points would you like to add? "))
+                increment = float(input("How many points would you like to add?"))
             except ValueError: 
                 print("Please enter a valid number for the increment.")
                 continue                  
-
+            # if there are enough points, run increment
             if increment <= self.available_points:
-                error_message = self.stats[chosen_stat].inc_points(increment)
-                if isinstance(error_message, str):  # Check if an error message was returned
-                    print(error_message)  # Print the error message
-                else:
-                    self.available_points -= (increment - error_message)  # Reduce only by allocated points
-                    self.total_allocated_points += increment - error_message  # Update total allocated points
-                    if error_message > 0:
-                        print(f"{chosen_stat} successfully incremented, but you had {error_message} excess points that couldn't be allocated.")
-                    else:
-                        print(f"{chosen_stat} successfully incremented by {increment}, new value is {self.stats[chosen_stat].points}")
+                self.stats[chosen_stat].inc_points(increment)
+                self.available_points -= increment
+                print(f"{chosen_stat} successfully incremented by {increment}, new value is {self.stats[chosen_stat].points}")
+            # otherwise, print error message and let user retry
             else:
                 print("You don't have enough points to increase the stat by that much")
+                continue
 
-    def reset_allocation(self):
-        for stat in self.stats.values():
-            stat.points = float(stat.points)  # Reset to starting value
-        self.available_points = 1  # Reset available points
-        self.total_allocated_points = 0  # Reset total allocated points
-        print("All points have been reset.")
 
     def add_to_inventory(self, item):
         if item not in items_list:
@@ -153,23 +121,24 @@ class Player:
         print("You have: £" + str(self.money))
     
     def move_location(self, direction):
-        # Check if the direction is valid and exists in the current location's exits
+    #check if the direction is valid and exists in the current location's exits
         if direction in self.current_location.exits:
             new_location_name = self.current_location.exits[direction]
             self.current_location = locations[new_location_name]
             print(f"You have moved to {self.current_location.name}.")
         else:
-            print(f"You can't go {direction} from here.")
+             print(f"You can't go {direction} from here.")
 
+    
     def get_travel_time(self, action_word):
         if action_word == "take":
             delay_time = 0
-            if random.randint(1, 100) > 100 * self.stats["luck"].points:  # there will be a delay
-                delay_time = random.randint(1, 10)
+            if random.randint(1,100) > 100 * self.stats["Luck"].points: # there will be a delay
+                delay_time = random.randint(1,10)
                 print("Your train was delayed by", delay_time, "minutes.")
-            return 4 + delay_time  # 4 mins is the normal train time
+            return 4 + delay_time # 4 mins is the normal train time
         else:
-            walk_time = random.uniform(3, 5) * self.stats["drunkenness"].points - random.uniform(0, 2) * self.stats["health"].points - random.uniform(0, 1) * self.stats["strength"].points
+            walk_time = random.uniform(3,5) * self.stats["Drunkenness"].points - random.uniform(0,2) * self.stats["Health"].points - random.uniform(0,1) * self.stats["Strength"].points
             if walk_time > 1:
                 walk_time = 1
             elif walk_time < 0.1:
