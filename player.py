@@ -76,7 +76,7 @@ class Player:
             # print a clear line
             print()
             # get desired stat to increase
-            chosen_stat = input("Which stat would you like to increase?")
+            chosen_stat = input("Which stat would you like to increase?").lower()
             # validate that stat exists
             if chosen_stat not in self.stats.keys():
                 print("Invalid stat")
@@ -132,12 +132,12 @@ class Player:
     def get_travel_time(self, action_word):
         if action_word == "take":
             delay_time = 0
-            if random.randint(1,100) > 100 * self.stats["Luck"].points: # there will be a delay
+            if random.randint(1,100) > 100 * self.stats["luck"].points: # there will be a delay
                 delay_time = random.randint(1,10)
                 print("Your train was delayed by", delay_time, "minutes.")
             return 4 + delay_time # 4 mins is the normal train time
         else:
-            walk_time = random.uniform(3,5) * self.stats["Drunkenness"].points - random.uniform(0,2) * self.stats["Health"].points - random.uniform(0,1) * self.stats["Strength"].points
+            walk_time = random.uniform(3,5) * self.stats["drunkenness"].points - random.uniform(0,2) * self.stats["health"].points - random.uniform(0,1) * self.stats["strength"].points
             if walk_time > 1:
                 walk_time = 1
             elif walk_time < 0.1:

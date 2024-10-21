@@ -1,11 +1,11 @@
 # FORMAT - name // description // starting_value
 
-Health // How fast a player loses health // 0.5
+health // How fast a player loses health // 0.5
 
-Drunkenness // How fast a player becomes drunk // 0.5
+drunkenness // How fast a player becomes drunk // 0.5
 
-Strength // Increases players base damage // 0.5
+strength // Increases players base damage // 0.5
 
-Luck // Effects the likelihood of receiving certain perks, or facing certain enemies // 0.5
+luck // Effects the likelihood of receiving certain perks, or facing certain enemies // 0.5
 
-Charisma // Reduces the cost of items in shops // 0.5
+charisma // Reduces the cost of items in shops // 0.5

@@ -8,6 +8,10 @@ closing_time = [1,0]
 inside = False # stores whether the player is inside a building or on the street
 player = Player()
 
+def initialise_game():
+    global player
+    player.allocate_points()
+
 def update_time(mins):
     global time
     time[0] = int(time[0])
@@ -104,6 +108,7 @@ def execute_inside(inp):
             done_inside()
 
 def main():
+    initialise_game()
     while True:
         if not inside:
             print_menu()
