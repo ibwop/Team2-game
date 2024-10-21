@@ -43,6 +43,28 @@ Vip ticket // Shows your a vip, gives money // tgi fridays // 0
 Umbrella Straw // Shove in enemies eye, single use // tgi fridays // 20
 Charity Donation Jar // A moral dilemma, steal or not steal? // tgi fridays // 0
 
+Bottle Opener // Brutal weapon // prince of wales // 25
+Cork Gun // Shoots corks // prince of wales // 20
+Lighter // Burn enemies // prince of wales // 20
+
+Microphone // Scream at enemies, deafens them // kiwis kareoke // 25
+Peanuts // Strong against those with nut allegies // kiwi kareoke //  dependent 
+Glass Bottle // Stab enemies // kiwi kareoke // 25
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
