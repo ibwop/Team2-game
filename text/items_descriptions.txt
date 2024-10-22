@@ -32,27 +32,27 @@ Glass Knuckles // One time use, very deadly // glassworks // 25 // NA // NA
 Ring of Fire // Extremely strong drink, boosts drunkness // glassworks // 0 // NA // NA
 
 Fermented Fossil // Throw at an enemy, single use // Museum // 20 // ranged // Single
-Echoing Bell // Loud enought to burst some ear drums // Museum // 15
-Magic Dice // Roll between 10 - 20 does that much damage // Museum // 0
+Echoing Bell // Loud enought to burst some ear drums // Museum // 15 // Ranged // Multiple Enemies
+Magic Dice // Roll between 10 - 20 does that much damage // Museum // 0 // Ranged // Single
 
-Old Lottery Ticket // Gives you a random amount of money between (IDK) // chippy lane  // 0
-Broken Phone Charger // Shocks the enemy // chippy lane // 0
-Fishnet // Traps the enemy ( or does x amount of damage) // chippy lane // 
+Old Lottery Ticket // Gives you a random amount of money between (IDK) // chippy lane  // 0 // NA // NA
+Broken Phone Charger // Shocks the enemy // chippy lane // 0 // Not ranged // Single
+Fishnet // Traps the enemy ( or does x amount of damage) // chippy lane // Ranged // Multiple enemies
 
-Vip ticket // Shows your a vip, gives money // tgi fridays // 0
-Umbrella Straw // Shove in enemies eye, single use // tgi fridays // 20
-Charity Donation Jar // A moral dilemma, steal or not steal? // tgi fridays // 0
+Vip ticket // Shows your a vip, gives money // tgi fridays // 0 // NA // NA
+Umbrella Straw // Shove in enemies eye, single use // tgi fridays // 20 // Not ranged // Single 
+Charity Donation Jar // A moral dilemma, steal or not steal? // tgi fridays // 0 // NA // NA
 
-Bottle Opener // Brutal weapon // prince of wales // 25
-Cork Gun // Shoots corks // prince of wales // 20
-Lighter // Burn enemies // prince of wales // 20
+Bottle Opener // Brutal weapon // prince of wales // 25 // Not ranged // Single 
+Cork Gun // Shoots corks // prince of wales // 20 // Ranged // Single
+Lighter // Burn enemies // prince of wales // 20 // Not ranged // Single
 
-Microphone // Scream at enemies, deafens them // kiwis kareoke // 17
-Peanuts // Strong against those with nut allegies // kiwi kareoke //  dependent 
-Glass Bottle // Stab enemies // kiwi kareoke // 25
+Microphone // Scream at enemies, deafens them // kiwis kareoke // 17 // Ranged // Multiple
+Peanuts // Strong against those with nut allegies // kiwi kareoke //  dependent // Ranged // Multiple
+Glass Bottle // Stab enemies // kiwi kareoke // 25 // Not ranged // Single
 
-Cleaning Supplies // Throw bleach at enemy // cardiff central // 17 
-Inspector's Whistle // Calls angry dogs that bite the enemy // cardiff central // 25
+Cleaning Supplies // Throw bleach at enemy // cardiff central // 17 // Ranged // Single
+Inspector's Whistle // Calls angry dogs that bite the enemy // cardiff central // 25 // Ranged // Multiple
 
 
 
