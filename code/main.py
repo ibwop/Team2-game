@@ -112,11 +112,12 @@ def execute_inside(inp):
             
 
 def main():
+    print(game.player.current_location.name)
     while True:
         if not game.inside:
             e = Encounter()
-            if e.trigger_encounter(game.player.current_location):
-                e.trigger_encounter(game.player.current_location)
+            if e.trigger_encounter(game.player.current_location.name):
+                e.trigger_encounter(game.player.current_location.name)
             else:
                 print_menu()
             

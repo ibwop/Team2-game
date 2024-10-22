@@ -94,8 +94,10 @@ class Player:
             print()
 
             chosen_stat = input("Which stat would you like to increase? (Type 'reset' to reset points or 'cancel' to cancel) ").strip().lower()
-            
-            if chosen_stat == 'reset':
+            if chosen_stat not in self.stats.keys():
+                print("Unrecognised stat")
+                continue
+            elif chosen_stat == 'reset':
                 self.reset_allocation()
                 continue
             elif chosen_stat == 'cancel':

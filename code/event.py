@@ -78,7 +78,7 @@ class Encounter():
         if self.count > 0:
             self.count -= 1
             return False
-        if random.random() < 0.3:  
+        if random.random() < 0.4:  
             self.count = 3
             self.random_encounter(location)
         return False
