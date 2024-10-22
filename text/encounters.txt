@@ -1,15 +1,7 @@
-# FORMAT - description, npc, action 1 // action 2 // action 3 // outcome 1 // outcome 2 // outcome 3 // effect 1 // effect 2 // effect 3 // location
+# FORMAT - description // npc // action 1 // action 2 // action 3 // outcome 1 // outcome 2 // outcome 3
 
-You find a chest // none // open // leave it // none // Chest bites you, lose health // you leave it // none // cardiff castle
+You find a chest // none // open it // leave it // kick it // the chest bites you // you leave it and continue // you die
 
-A jester appears doing a strange dance. He asks you to solve a riddle promising a reward if you answer correctly. // accept // ignore // ask him for help // Riddle // Leaves you // Gets angry, gives harder riddle. // cardiff castle
+A jester appears doing a strange dance. He asks you to solve a riddle promising a reward if you answer correctly. // jester // accept // ignore him // ask him for help // he leaves you // He gets angry // He helps you solve a puzzle
 
-
-
-
-
-
-
-
-A homeless person approaches you and asks for £5 so that he can buy himself some lunch // homeless_man // accept // reject // punch // the homeless man takes your money and buys a beer // the homeless man swears at you // the homeless man is knocked out // chippy lane
-
+A homeless person approaches you and asks for £5 so that he can buy himself some lunch // homeless_man // accept // reject // punch // the homeless man takes your money and buys a beer // the homeless man swears at you // the homeless man is knocked out

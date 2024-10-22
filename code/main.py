@@ -5,8 +5,10 @@ import game
 game.initialise_variables()
 from map import *
 from items import *
+from event import *
 from player_class import *
 import string
+
 
 def update_time(mins):
     t = game.time
@@ -110,11 +112,13 @@ def execute_inside(inp):
             
 
 def main():
-    game.initialise_game()
     while True:
-        game.trigger_encounter()
         if not game.inside:
-            print_menu()
+            e = Encounter()
+            if e.trigger_encounter(game.player.current_location):
+                e.trigger_encounter(game.player.current_location)
+            else:
+                print_menu()
             
             user_input = take_input()
             
