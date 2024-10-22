@@ -52,7 +52,7 @@ Peanuts // Strong against those with nut allegies // kiwi kareoke //  dependent
 Glass Bottle // Stab enemies // kiwi kareoke // 25
 
 Cleaning Supplies // Throw bleach at enemy // cardiff central // 17 
-Inspector's Whistle // Calls angry dogs that bite the enemy // 25
+Inspector's Whistle // Calls angry dogs that bite the enemy // cardiff central // 25
 
 
 
