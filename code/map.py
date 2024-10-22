@@ -1,6 +1,8 @@
-from game import *
+import game
 from file_manager import *
 import os
+import string
+import random
 
 # location_descriptions.txt FORMAT:
 # name // TYPE // exit_1 // leads_to_1 // ... // exit_n // leads_to_n // description
@@ -39,7 +41,7 @@ class Pub(location):
         location.__init__(self, name, loc_type, exits, description)
         
         # Read pub data from file (format: name // queue_time // item_1 // price_1 // ... // item_n // price_n)
-        pub_data = read_file_where("text/pubs.txt", name)
+        pub_data = read_file_where(r"..\text\pubs.txt", name)
         
         # set queue time (in minutes)
         self.queue_time = int(pub_data[1])
@@ -77,7 +79,6 @@ class Pub(location):
             elif item.type == "DRINK":
                 print("£" + str(item.price), "|", item.name, "(" + str(item.alcohol_units), "units)")
 
-    
     def go_inside(self):
         self.print_menu()
         print("or LEAVE")
@@ -102,7 +103,7 @@ class Pub(location):
 class shop(location):
     def __init__(self, n, t, e, d):
         location.__init__(self, n, t, e, d)
-        data = read_file_where("text/shops.txt", n)
+        data = read_file_where(r"..\text\shops.txt", n)
         menu = {}
         i = 1
         while i < len(data):
@@ -137,32 +138,154 @@ class shop(location):
 class combat(location):
     def __init__(self, n, t, e, d):
         location.__init__(self, n, t, e, d)
-        data = read_file(os.path.join("combat_descriptions", self.name + ".txt"))
-        self.fight_description = data[0]
-        self.enemy = enemy(data[1], data[2])
-        self.weapons = []
-        i = 0
-        while i < len(data[3]):
-            self.weapons.append(weapon(data[3][i], data[3][i+1], data[3][i+2], data[3][i+3]))
-            i += 4
+        data = read_file(os.path.join(r"..\combat_descriptions", self.name + ".txt"))
+        self.fight_description = data[0][0]
+        self.distance_to_enemies = 100
+        self.enemy_data = data[2] + data[3]
         self.items_inventory = []
+        i = 0
+        while i < len(data[4]):
+            self.items_inventory.append(weapon(data[4][i], data[4][i+1], data[4][i+2], data[4][i+3]))
+            i += 4
+        self.enemies = self.initialise_enemies(int(data[1][0])) # number of starting enemies
     
-    def menu(self):
+    def go_inside(self):
         print()
         print(self.fight_description)
         print()
+        self.execute_inside()
+    
+    def initialise_enemies(self, num):
+        enemies = []
+        for i in range(num):
+            enemies.append(enemy(self.enemy_data))
+        return enemies
+    
+    def execute_inside(self):
         fighting = True
         while fighting:
+            inp, options = self.take_input()
+            if inp in options:
+                self.execute_inp(inp)
+                self.update_distance_to_enemies(-5)
+            else:
+                print("You cannot do that.")
+            if len(self.enemies) == 0:
+                fighting = False
+                self.win()
+            elif game.player.health.health <= 0:
+                fighting = False
+                self.lose()
+    
+    def win(self):
+        print("YOU WON THE FIGHT.")
+    
+    def lose(self):
+        print("YOU LOST THE FIGHT.")
+    
+    def execute_inp(self, inp):
+        words = inp.split()
+        if words[0] == "move":
+            if words[1] == "closer":
+                self.update_distance_to_enemies(-20)
+            else:
+                self.update_distance_to_enemies(20)
+        elif words[0] == "pick":
             for item in self.items_inventory:
-                pass
+                if item.name.lower() in inp:
+                    game.player.inventory.append(item)
+                    self.items_inventory.remove(item)
+                    break
+        elif words[0] == "use":
+            for item in game.player.inventory:
+                if item.name.lower() in inp:
+                    item_to_use = item
+                    break
+            if self.distance_to_enemies <= 30:
+                if item_to_use.range == "CLOSE":
+                    self.use_weapon(item_to_use)
+                else:
+                    print("You are too close to use this.")
+                    num_enemies = random.randint(0, (len(self.enemies)-1)/2)
+                    for i in range(num_enemies):
+                        game.player.take_damage(self.enemies[i].damage)
+            else:
+                if item_to_use.range == "FAR":
+                    self.use_weapon(item_to_use)
+                else:
+                    print("You are too far away to use this.")
+        elif words[0] == "drop":
+            for item in game.player.inventory:
+                if item.name.lower() in inp:
+                    game.player.inventory.remove(item)
+                    self.inventory_items.append(item)
+                    break
+    
+    def update_distance_to_enemies(self, change):
+        self.distance_to_enemies += change
+        if self.distance_to_enemies < 0:
+            self.distance_to_enemies = 0
+        elif self.distance_to_enemies > 100:
+            self.distance_to_enemies = 100
+        print("The", len(self.enemies), self.enemy_data[0] + "(s) are", self.distance_to_enemies, "metres away.")
+    
+    def use_weapon(self, item_to_use):
+        if item_to_use.group:
+            dead_enemies = []
+            for enemy in self.enemies:
+                if enemy.deal_damage(item_to_use.damage * game.player.stats["strength"].points):
+                    dead_enemies.append(enemy)
+            for enemy in dead_enemies:
+                self.enemies.remove(enemy)
+        else:
+            enemy = self.enemies[random.randint(0,len(self.enemies)-1)]
+            if enemy.deal_damage(item_to_use.damage * game.player.stats["strength"].points):
+                self.enemies.remove(enemy)
+    
+    def normalise_input(self, inp):
+        inp = inp.strip()
+        inp = inp.lower()
+        new_txt = ""
+        for char in inp:
+            if not char.isdigit() and not char in string.punctuation:
+                new_txt += char
+        return new_txt
+    
+    def take_input(self):
+        options = []
+        if self.distance_to_enemies > 30:
+            options.append("move closer")
+        else:
+            options.append("move away")
+        for item in self.items_inventory:
+            options.append("pick up " + item.name.lower())
+        for item in game.player.inventory:
+            options.append("use " + item.name.lower())
+            options.append("drop " + item.name.lower())
+        for o in options:
+            print(o.upper())
+        user_input = self.normalise_input(input("What would you like to do?\n"))
+        return user_input, options
     
 class enemy:
-    def __init__(self, descriptions, weapon):
-        self.name = descriptions[0]
-        self.description = descriptions[1]
-        self.health = descriptions[2]
-        self.damage = weapon[0]
-        self.range = weapon[1]
+    def __init__(self, data):
+        self.name = data[0]
+        self.description = data[1]
+        self.health = float(data[2])
+        self.damage = int(data[3])
+        self.range = data[4]
+    
+    def deal_damage(self, dmg):
+        self.health -= dmg
+        if self.is_dead():
+            print("ENEMY DEAD")
+            return True
+        return False
+    
+    def is_dead(self, dmg):
+        if self.health <= 0:
+            return True
+        return False
 
 class weapon:
     def __init__(self, n, d, r, g):
@@ -184,7 +307,7 @@ class drink:
         self.name = n
         self.price = float(p)
         self.type = "DRINK"
-        self.alcohol_units = float(read_file_where("text/drinks.txt", n)[1]) # dictates how drunk the player will get after consumption
+        self.alcohol_units = float(read_file_where(r"..\text\drinks.txt", n)[1]) # dictates how drunk the player will get after consumption
     
     def consume(self):
         print("DRINKING", self.name)
@@ -194,7 +317,7 @@ class food:
         self.name = n
         self.price = float(p)
         self.type = "FOOD"
-        self.sustinance = float(read_file_where("text/foods.txt", n)[1]) # dictates how much health a player will gain / how much drunkenness the player will lose
+        self.sustinance = float(read_file_where(r"..\text\foods.txt", n)[1]) # dictates how much health a player will gain / how much drunkenness the player will lose
     
     def consume(self):
         print("EATING", self.name)
@@ -202,7 +325,7 @@ class food:
 class shop_item:
     def __init__(self, n):
         self.name = n
-        data = read_file_where("text\shop_items.txt", n)
+        data = read_file_where(r"..\text\shop_items.txt", n)
         self.price = float(data[1])
         self.use = data[2]
         self.amount = float(data[3])
@@ -217,7 +340,7 @@ class shop_item:
 
 def initialise_locations():
     locations = {}  # dictionary to store locations
-    data = read_file("text/location_descriptions.txt")
+    data = read_file(r"..\text\location_descriptions.txt")
 
     for line in data:
         exits = {}  # initiase exits for each location
