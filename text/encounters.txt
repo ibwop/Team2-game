@@ -1,33 +1,13 @@
-# FORMAT - description, npc, action 1 // action 2 // action 3 // outcome 1 // outcome 2 // outcome 3 // effect 1 // effect 2 // effect 3 
+# FORMAT - description // npc // action 1 // action 2 // action 3 // outcome 1 // outcome 2 // outcome 3 // effect 1 // effect 2 // effect 3 
 
-You find a chest // open // leave it // Stab the chest // Chest bites you, lose health // you leave it // kill monster, give money 
+You find a chest // none // open it // leave it // stab the chest // Chest bites you, lose health // You leave it // Kill monster, get money // -10 health // no effect // +20 money
 
-A jester appears doing a strange dance. He asks you to solve a riddle promising a reward if you answer correctly. // accept // ignore // ask him for help // Riddle // Leaves you // Gets angry, gives harder riddle. 
+A jester appears doing a strange dance. He asks you to solve a riddle promising a reward if you answer correctly. // jester // accept // ignore // ask him for help // You solve the riddle and win a prize // He leaves you // He gets angry, gives a harder riddle // +10 intelligence // no effect // -5 intelligence
 
-You hear whispers in the distance. // Investigate // Ignore // Charge with your weapon // You come across vampire chatting, fight // You ignore the whispers // You kill one of the vampire, easier fight
+You hear whispers in the distance. // none // investigate // ignore // charge with your weapon // You come across vampires chatting, a fight begins // You ignore the whispers and nothing happens // You kill one of the vampires, easier fight ahead // +1 fight // no effect // +10 strength
 
-A rowdy fan spills your drink. // Punch him // Ignore him // Kick him // Knocks out fan, gets free drink // You ignore him // He falls over, he's angry, fight.
+A rowdy fan spills your drink. // fan // punch him // ignore him // kick him // You knock out the fan and get a free drink // You ignore him and nothing happens // He falls over and gets angry, leading to a fight // +1 drink // no effect // -5 health
 
-A man comes up to you saying he knows you. You remember him but are unsure on his name // Call him Harry // Call him Ben // Call him Callum // He hugs you and buys you a drink // Fight // Fight 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+A man comes up to you saying he knows you. You remember him but are unsure of his name. // man // call him Harry // call him Ben // call him Callum // He hugs you and buys you a drink // He starts a fight with you // He starts a fight with you // +1 drink // -5 health // -5 health
 
 A homeless person approaches you and asks for £5 so that he can buy himself some lunch // homeless_man // accept // reject // punch // the homeless man takes your money and buys a beer // the homeless man swears at you // the homeless man is knocked out
