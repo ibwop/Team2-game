@@ -1,4 +1,4 @@
-## format Item name // Description // Location found // Damage
+## format Item name // Description // Location found // Damage // Ranged? // AOE?
 
 Scroll of Wisdom // Gives the player a clue on what to do next // cardiff castle // 0
 Invisibility Cloak // Can sneak past enemies // cardiff castle // 0
