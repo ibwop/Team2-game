@@ -1,37 +1,37 @@
 ## format Item name // Description // Location found // Damage // Ranged? // AOE?
 
-Scroll of Wisdom // Gives the player a clue on what to do next // cardiff castle // 0
-Invisibility Cloak // Can sneak past enemies // cardiff castle // 0
-Vial of Essence // Boost player stats // cardiff castle // 0
-Magic Crystal // Teleports player to chosen location // cardiff castle // 0 
-Frozen Flute // Plays a melody that will freeze enemies // cardiff castle // ?
+Scroll of Wisdom // Gives the player a clue on what to do next // cardiff castle // 0 // NA // NA 
+Invisibility Cloak // Can sneak past enemies // cardiff castle // 0 // NA // NA
+Vial of Essence // Boost player stats // cardiff castle // 0 // NA // NA
+Magic Crystal // Teleports player to chosen location // cardiff castle // 0 // NA // NA
+Frozen Flute // Plays a melody that will freeze enemies // cardiff castle // ? // ranged // Mulitple enemies
 
-Rubber Chicken // Quacks loudly distracting enemies // live lounge // 0
-Live Lounge Barcode // Discount for drinks // live lounge //0
-Used Straw // Allows player to shoot spit at enemies, blinds them // live lounge // 3
+Rubber Chicken // Quacks loudly distracting enemies // live lounge // 0 // Ranged // Multiple enemies 
+Live Lounge Barcode // Discount for drinks // live lounge // 0 // NA // NA
+Used Straw // Allows player to shoot spit at enemies, blinds them // live lounge // 3 // Ranged // Single
 
-Barmaid's Charm // Boosts charisma during chat with barmaid // central bar // 0
-Golden Coin // Can be exchanged for a free drink // central bar // 0
-Leprechaun's Liquor // Boosts luck // central bar // 0
+Barmaid's Charm // Boosts charisma during chat with barmaid // central bar // 0 // NA // NA
+Golden Coin // Can be exchanged for a free drink // central bar // 0 // NA // NA
+Leprechaun's Liquor // Boosts luck // central bar // 0 // NA // NA
 
-Moldy Wetherspoons Wrap // Just a moldy wrap, why would you want this? // the gatekeeper // 0
-Daylight Savings Brew // Turns back time an hour // the gatekeeper // 0
-Bartender's Coaster // Doubles effect of drink drunk on it // the gatekeeper // 0
+Moldy Wetherspoons Wrap // Just a moldy wrap, why would you want this? // the gatekeeper // 0 // NA // NA
+Daylight Savings Brew // Turns back time an hour // the gatekeeper // 0 // NA // NA
+Bartender's Coaster // Doubles effect of drink drunk on it // the gatekeeper // 0 // NA // NA
 
-Clearance Protein // Boosts strength // primark/boots // 0
+Clearance Protein // Boosts strength // primark/boots // 0 // NA // NA
 
-Rugby Ball // Distracts rugby players // principality // 0
-Scrum Cap // doubles headbutt damage // principality // 15
-Togs // Kicks are brutal // principality // 12
-Energy Drink // Makes the player super fast, saves time when moving // principality // 0
+Rugby Ball // Distracts rugby players // principality // 0 // ranged // Multiple enemies 
+Scrum Cap // doubles headbutt damage // principality // 15 // Not ranged // Single
+Togs // Kicks are brutal // principality // 12 // Not ranged // Single
+Energy Drink // Makes the player super fast, saves time when moving // principality // 0 // NA // NA
 
-Glass Slipper's // Boosts charisma // glassworks // 0
-Glass rose // Can woo a barmaid // glassworks // 0
-Glass gauntlet // Boosts strength, very fragile // glassworks // 0
-Glass Knuckles // One time use, very deadly // glassworks // 25
-Ring of Fire // Extremely strong drink, boosts drunkness // glassworks // 0
+Glass Slipper's // Boosts charisma // glassworks // 0 // NA // NA
+Glass rose // Can woo a barmaid // glassworks // 0 // NA // NA
+Glass gauntlet // Boosts strength, very fragile // glassworks // 0 // NA // NA
+Glass Knuckles // One time use, very deadly // glassworks // 25 // NA // NA
+Ring of Fire // Extremely strong drink, boosts drunkness // glassworks // 0 // NA // NA
 
-Fermented Fossil // Throw at an enemy, single use // Museum // 20
+Fermented Fossil // Throw at an enemy, single use // Museum // 20 // ranged // Single
 Echoing Bell // Loud enought to burst some ear drums // Museum // 15
 Magic Dice // Roll between 10 - 20 does that much damage // Museum // 0
 
