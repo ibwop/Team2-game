@@ -11,3 +11,11 @@ A rowdy fan spills your drink. // fan // punch him // ignore him // kick him // 
 A man comes up to you saying he knows you. You remember him but are unsure of his name. // random_man // call him Harry // call him Ben // call him Callum // He hugs you and buys you a drink // He starts a fight with you // He starts a fight with you // +1 drink // -5 health // -5 health
 
 A homeless person approaches you and asks for £5 so that he can buy himself some lunch // homeless_man // accept // reject // punch // the homeless man takes your money and buys a beer // the homeless man swears at you // the homeless man is knocked out
+
+A group of people are taking a photo // Move out the way // Photo bomb // Throw their phone // You move out the way // You get in a sick photo + charisma // Fight
+
+A dog approaches you. He says "No one will believe you " and leaves. // Chase the dog // Ignore the dog // Or re-evaluate life choices // Dog fight // -1 Charisma // -5 health.
+
+A group of minions surround you asking for bananas // Give banana // Kick them // Run // They leave // They jump you - 20 health // You escape
+
+You see a miscellanious bottle on the floor // Drink it // Ignore it // Kick it // + Strength // Leave it // Shatters in your foot -5 health
