@@ -2,6 +2,8 @@ You enter into the dimly lit Evolution of Wales gallery at the National Museum o
 
 Security Guard // The security guards advance as one - a wall of navy uniforms and gleaming badges, armed with flashlights cutting through the darkness and walkie-talkies crackling at their belts, their heavy boots moving in synchronized steps across the marble floor. // 50
 
+number of enemies // 3
+
 10 // CLOSE
 
 Fossil // 5 // FAR // False
