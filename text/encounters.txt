@@ -1,12 +1,19 @@
-# FORMAT - description, npc, action 1 // action 2 // action 3 // outcome 1 // outcome 2 // outcome 3 // effect 1 // effect 2 // effect 3 // location
+# FORMAT - description, npc, action 1 // action 2 // action 3 // outcome 1 // outcome 2 // outcome 3 // effect 1 // effect 2 // effect 3 
 
-You find a chest // open // leave it // Stab the chest // Chest bites you, lose health // you leave it // kill monster, give money // cardiff castle
+You find a chest // open // leave it // Stab the chest // Chest bites you, lose health // you leave it // kill monster, give money 
 
-A jester appears doing a strange dance. He asks you to solve a riddle promising a reward if you answer correctly. // accept // ignore // ask him for help // Riddle // Leaves you // Gets angry, gives harder riddle. // cardiff castle
+A jester appears doing a strange dance. He asks you to solve a riddle promising a reward if you answer correctly. // accept // ignore // ask him for help // Riddle // Leaves you // Gets angry, gives harder riddle. 
 
-You hear whispers in the distance. // Investigate // Ignore // Charge with your weapon // You come across Knight's chatting, fight // You ignore the whispers // You kill one of the knights, easier fight // cardiff castle
+You hear whispers in the distance. // Investigate // Ignore // Charge with your weapon // You come across vampire chatting, fight // You ignore the whispers // You kill one of the vampire, easier fight
 
-A rowdy fan spills your drink. // Punch him // Ignore him // Kick him // Knocks out fan, gets free drink // You ignore him // He falls over, he's angry, fight. // live lounge
+A rowdy fan spills your drink. // Punch him // Ignore him // Kick him // Knocks out fan, gets free drink // You ignore him // He falls over, he's angry, fight.
+
+A man comes up to you saying he knows you. You remember him but are unsure on his name // Call him Harry // Call him Ben // Call him Callum // He hugs you and buys you a drink // Fight // Fight 
+
+
+
+
+
 
 
 
