@@ -179,9 +179,11 @@ class combat(location):
     
     def win(self):
         print("YOU WON THE FIGHT.")
-    
+        self.visited = True
+        
     def lose(self):
         print("YOU LOST THE FIGHT.")
+        self.visited = True
     
     def execute_inp(self, inp):
         words = inp.split()
@@ -201,19 +203,22 @@ class combat(location):
                 if item.name.lower() in inp:
                     item_to_use = item
                     break
-            if self.distance_to_enemies <= 30:
-                if item_to_use.range == "CLOSE":
-                    self.use_weapon(item_to_use)
+            if item_to_use.is_weapon:
+                if self.distance_to_enemies <= 30:
+                    if not item_to_use.range:
+                        self.use_weapon(item_to_use)
+                    else:
+                        print("You are too close to use this.")
+                        num_enemies = random.randint(0, (len(self.enemies)-1)/2)
+                        for i in range(num_enemies):
+                            game.player.take_damage(self.enemies[i].damage)
                 else:
-                    print("You are too close to use this.")
-                    num_enemies = random.randint(0, (len(self.enemies)-1)/2)
-                    for i in range(num_enemies):
-                        game.player.take_damage(self.enemies[i].damage)
+                    if item_to_use.range:
+                        self.use_weapon(item_to_use)
+                    else:
+                        print("You are too far away to use this.")
             else:
-                if item_to_use.range == "FAR":
-                    self.use_weapon(item_to_use)
-                else:
-                    print("You are too far away to use this.")
+                print("use in other way")
         elif words[0] == "drop":
             for item in game.player.inventory:
                 if item.name.lower() in inp:
@@ -230,17 +235,22 @@ class combat(location):
         print("The", len(self.enemies), self.enemy_data[0] + "(s) are", self.distance_to_enemies, "metres away.")
     
     def use_weapon(self, item_to_use):
+        damage_to_deal = item_to_use.damage * game.player.stats["strength"].points
+        count = 0
         if item_to_use.group:
             dead_enemies = []
             for enemy in self.enemies:
-                if enemy.deal_damage(item_to_use.damage * game.player.stats["strength"].points):
+                count += 1
+                if enemy.deal_damage(damage_to_deal):
                     dead_enemies.append(enemy)
             for enemy in dead_enemies:
                 self.enemies.remove(enemy)
         else:
             enemy = self.enemies[random.randint(0,len(self.enemies)-1)]
-            if enemy.deal_damage(item_to_use.damage * game.player.stats["strength"].points):
+            count += 1
+            if enemy.deal_damage(damage_to_deal):
                 self.enemies.remove(enemy)
+        print(damage_to_deal, "damage dealt to", count, self.enemy_data[0] + "(s).")
     
     def normalise_input(self, inp):
         inp = inp.strip()
@@ -273,7 +283,7 @@ class enemy:
         self.description = data[1]
         self.health = float(data[2])
         self.damage = int(data[3])
-        self.range = data[4]
+        self.range = bool(int(data[4]))
     
     def deal_damage(self, dmg):
         self.health -= dmg
@@ -282,7 +292,7 @@ class enemy:
             return True
         return False
     
-    def is_dead(self, dmg):
+    def is_dead(self):
         if self.health <= 0:
             return True
         return False
@@ -290,9 +300,10 @@ class enemy:
 class weapon:
     def __init__(self, n, d, r, g):
         self.name = n
-        self.damage = d # float containing how much damage is done
-        self.range = r # text saying whether it is CLOSE or FAR range
-        self.group = g # boolean, True if it can damage multiple enemies at once
+        self.damage = float(d) # float containing how much damage is done
+        self.range = bool(int(r)) # boolean, True if long, False if close range
+        self.group = bool(int(g)) # boolean, True if it can damage multiple enemies at once
+        self.is_weapon = True
 
 class junction(location):
     def __init__(self, n, t, e, d):
@@ -331,6 +342,11 @@ class shop_item:
         self.amount = float(data[3])
         self.description = data[4]
         self.num_uses = int(data[5])
+        self.is_weapon = bool(int(data[6]))
+        if self.is_weapon:
+            self.range = bool(int(data[6]))
+            self.group = bool(int(data[7]))
+            self.damage = float(data[8])
     
     def buy(self):
         print("You have bought", self.name)
