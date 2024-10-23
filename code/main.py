@@ -112,7 +112,6 @@ def execute_inside(inp):
             
 
 def main():
-    print(game.player.current_location.name)
     while True:
         if not game.inside:
             e = Encounter()

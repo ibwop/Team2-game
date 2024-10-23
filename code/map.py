@@ -137,15 +137,6 @@ class shop(location):
 class combat(location):
     def __init__(self, n, t, e, d):
         location.__init__(self, n, t, e, d)
-        data = read_file(os.path.join("combat_descriptions", self.name + ".txt"))
-        self.fight_description = data[0]
-        self.enemy = enemy(data[1], data[2])
-        self.weapons = []
-        i = 0
-        while i < len(data[3]):
-            self.weapons.append(weapon(data[3][i], data[3][i+1], data[3][i+2], data[3][i+3]))
-            i += 4
-        self.items_inventory = []
     
     def menu(self):
         print()

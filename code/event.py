@@ -73,6 +73,27 @@ class Encounter():
         print(outcome)
         print()
 
+    def handle_effect(self, effect, game):
+        """Handles applying the effects to the player's stats or inventory."""
+        if effect:
+            effect_parts = effect.split(',') 
+            for part in effect_parts:
+                part = part.strip()
+                if part.startswith('+') or part.startswith('-'):  # Check if it's an adjustment
+                    sign = part[0]
+                    amount = float(part[1:])
+                    if "health" in part:
+                        pass
+                    elif part.startswith('!') or part.startswitith('£'):
+                        game.player.inc_points(part)
+                    elif part.startswith('!'):
+                        item = part[0]
+                        game.player.add_to_inventory(item)
+                    elif part.startswith('£')
+                        game.player.adjust_money(part)
+                    
+               
+
     def trigger_encounter(self, location):
         """Randomly triggers encounters (20% chance)"""
         if self.count > 0:
