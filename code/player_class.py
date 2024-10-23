@@ -176,7 +176,7 @@ class Player:
                 print("Your train was delayed by", delay_time, "minutes.")
             return 4 + delay_time  # 4 mins is the normal train time
         else:
-            walk_time = 1 + 4 * (1500 / (self.stats["health"].points * self.stats["strength"].points))**(0.1 * self.stats["drunkenness"].points)
+            walk_time = 1 + 4 * (1500 / ((100 / self.health.health) * self.stats["strength"].points))**(0.1 * self.stats["drunkenness"].points)
             walk_time = round(walk_time)
             print("The walk took you", walk_time, "minutes.")
             return walk_time
