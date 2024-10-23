@@ -122,6 +122,8 @@ def main():
         else:
             game.player.current_location.go_inside()
             
+            done_inside()
+            
             #game.player.print_money()
             
             #user_input = take_input()

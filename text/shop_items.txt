@@ -1,15 +1,15 @@
-# FORMAT - name // price // use (HEALTH, DRUNKENNESS, etc) // amount // description // num_uses
+# FORMAT - name // price // use (HEALTH, DRUNKENNESS, etc) // amount // description // num_uses // is_weapon /(if True)/ range (as a weapon) // group (collat dmg as a weapon) // damage
 
-Medicine // 7.5 // INC_HEALTH // 10 // Drink the medicine to increase health // 5
+Medicine // 7.5 // INC_HEALTH // 10 // Drink the medicine to increase health // 5 // 0
 
-Tshirt // 3 // NONE // 0 // Wear the T-shirt to get into pubs // -1
+Tshirt // 3 // NONE // 0 // Wear the T-shirt to get into pubs // -1 // 0
 
-Coat // 20 // INC_STRENGTH // 10 // Wear this coat to increase your strength // -1
+Coat // 20 // INC_STRENGTH // 10 // Wear this coat to increase your strength // -1 // 0
 
-Trousers // 12 // NONE // 0 // Wear these trousers to get into pubs // -1
+Trousers // 12 // NONE // 0 // Wear these trousers to get into pubs // -1 // 0
 
-Hoodie // 15 // INC_STRENGTH // 5 // Wear this hoodie to increase your strength // -1
+Hoodie // 15 // INC_STRENGTH // 5 // Wear this hoodie to increase your strength // -1 // 0
 
-Burger // 5.99 // REDUCE_DRUNKENNESS // 5 // Eat this burger to sober up // 1
+Burger // 5.99 // REDUCE_DRUNKENNESS // 5 // Eat this burger to sober up // 1 // 0
 
-Kebab // 7.5 // REDUCE_DRUNKENNESS // 10 // Eat this kebab to sober up // 1
+Kebab // 7.5 // REDUCE_DRUNKENNESS // 10 // Eat this kebab to sober up // 1 // 0
