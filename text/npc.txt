@@ -1,1 +1,22 @@
+# FORMAT -  npc // description // location // Opening dialogue // speech 1 // speech 2 // reply 1 // reply 2
+
+# speech 1 = reply 1 # speech 2 = speech 2
+
+Security Guard // The security guard is clad in a fitted black uniform with the bar's logo embossed on the chest, he scans the crowd with keen, watchful eyes, ensuring that everyone stays in line. Despite his tough exterior, there's a hint of warmth in his smile when he interacts with regular patrons. When trouble brews he is quick to step in, using his imposing stature and firm but fair approach to maintain order. // Live Lounge
+
+Bartender // The bartender wears a black t-shirt and a leather apron stained from years of pouring drinks. Behind the bar, he moves with practised ease, wiping down counters and flipping bottles with flair. His demeanour is calm and approachable, offering quick smiles to regulars and newcomers alike. He’s attentive but never intrusive, quietly keeping an eye on the patrons while mixing drinks with precision. His voice is low and steady, often giving brief, no-nonsense responses, though he’ll crack a joke if the moment feels right. // The Gatekeeper
+
+Cashier // The cashier, wearing the standout black and blue Primark uniform with the company logo embossed on the back, sits slumped over the counter looking overwhelmed and tired from the never ending cues at the checkout. With an uninterested attitude, she assists impatient and frustrated customers with their purchases. // Primark
+
+Pharmacist // The pharmacist at Boots is a middle-aged man with thinning gray hair and sharp, attentive eyes Dressed in a crisp white coat with a name badge clipped neatly to his chest. He speaks in a measured tone offering clear, professional advice to customers while swiftly filling prescriptions. His hands are steady as he counts pills or measures liquids, and he often glances over his computer with a focused expression, double-checking each detail. // Boots
+
+Busker // A scruffy-looking busker stands on Queen Street, strumming an old acoustic guitar with chipped paint. His messy blonde hair falls into his eyes as he sways slightly to the rhythm of the song, a soulful melody that echoes through the bustling street. Dressed in worn jeans and a faded flannel shirt, he sings with a rough, passionate voice, captivating passersby who toss coins into the open guitar case at his feet. // Cardiff Queens st
+
+Chip Shop Bossman // In his late forties, the fish and chip shop bossman has a warm, round face framed by a scruffy beard and a head of curly hair that is tied back with a bright bandana. Dressed in a stained apron over a casual plaid shirt, he moves with a blend of efficiency and charm behind the counter, expertly frying golden-brown fish and perfectly crisp chips. // Chippy Ln
+
+Waiter // The waiter dressed in the classic red and white striped shirt and black apron, he effortlessly navigates the bustling restaurant, balancing trays of sizzling appetisers and colourful cocktails. His enthusiasm is infectious; he engages customers with playful banter and makes sure everyone feels like a regular. // TGI Fridays
+
+
+
+
 
