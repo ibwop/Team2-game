@@ -1,58 +1,58 @@
-## format Item name // Description // Location found // Damage // Ranged? // AOE?
+## format Item name // Description // Location found // is_weapon /(if True)/ range // group // damage
 
-Scroll of Wisdom // Gives the player a clue on what to do next // cardiff castle // 0 // NA // NA 
-Invisibility Cloak // Can sneak past enemies // cardiff castle // 0 // NA // NA
-Vial of Essence // Boost player stats // cardiff castle // 0 // NA // NA
-Magic Crystal // Teleports player to chosen location // cardiff castle // 0 // NA // NA
-Frozen Flute // Plays a melody that will freeze enemies // cardiff castle // ? // ranged // Mulitple enemies
+Scroll of Wisdom // Gives the player a clue on what to do next // Cardiff Castle // 0
+Invisibility Cloak // Can sneak past enemies // Cardiff Castle // 0
+Vial of Essence // Boost player stats // Cardiff Castle // 0
+Magic Crystal // Teleports player to chosen location // Cardiff Castle // 0
+Frozen Flute // Plays a melody that will freeze enemies // Cardiff Castle // 0
 
-Rubber Chicken // Quacks loudly distracting enemies // live lounge // 0 // Ranged // Multiple enemies 
-Live Lounge Barcode // Discount for drinks // live lounge // 0 // NA // NA
-Used Straw // Allows player to shoot spit at enemies, blinds them // live lounge // 3 // Ranged // Single
+Rubber Chicken // Quacks loudly distracting enemies // Live Lounge // 1 // 0 // 1 // 1
+Live Lounge Barcode // Discount for drinks // Live Lounge // 0
+Used Straw // Allows player to shoot spit at enemies, blinds them // Live Lounge // 1 // 1 // 0 // 3
 
-Barmaid's Charm // Boosts charisma during chat with barmaid // central bar // 0 // NA // NA
-Golden Coin // Can be exchanged for a free drink // central bar // 0 // NA // NA
-Leprechaun's Liquor // Boosts luck // central bar // 0 // NA // NA
+Barmaid's Charm // Boosts charisma during chat with barmaid // Central Bar // 0
+Golden Coin // Can be exchanged for a free drink // Central Bar // 0
+Leprechaun's Liquor // Boosts luck // Central Bar // 0
 
-Moldy Wetherspoons Wrap // Just a moldy wrap, why would you want this? // the gatekeeper // 0 // NA // NA
-Daylight Savings Brew // Turns back time an hour // the gatekeeper // 0 // NA // NA
-Bartender's Coaster // Doubles effect of drink drunk on it // the gatekeeper // 0 // NA // NA
+Moldy Wetherspoons Wrap // Just a moldy wrap, why would you want this? // the gatekeeper // 0
+Daylight Savings Brew // Turns back time an hour // the gatekeeper // 0
+Bartender's Coaster // Doubles effect of drink drunk on it // the gatekeeper // 0
 
-Clearance Protein // Boosts strength // primark/boots // 0 // NA // NA
+Clearance Protein // Boosts strength // Boots // 0
 
-Rugby Ball // Distracts rugby players // principality // 0 // ranged // Multiple enemies 
-Scrum Cap // doubles headbutt damage // principality // 15 // Not ranged // Single
-Togs // Kicks are brutal // principality // 12 // Not ranged // Single
-Energy Drink // Makes the player super fast, saves time when moving // principality // 0 // NA // NA
+Rugby Ball // Distracts rugby players // Principality // 0
+Scrum Cap // doubles headbutt damage // Principality // 1 // 0 // 0 // 15
+Togs // Kicks are brutal // Principality // 1 // 0 // 0 // 12
+Energy Drink // Makes the player super fast, saves time when moving // Principality // 0
 
-Glass Slipper's // Boosts charisma // glassworks // 0 // NA // NA
-Glass rose // Can woo a barmaid // glassworks // 0 // NA // NA
-Glass gauntlet // Boosts strength, very fragile // glassworks // 0 // NA // NA
-Glass Knuckles // One time use, very deadly // glassworks // 25 // NA // NA
-Ring of Fire // Extremely strong drink, boosts drunkness // glassworks // 0 // NA // NA
+Glass Slipper's // Boosts charisma // glassworks // 0
+Glass rose // Can woo a barmaid // glassworks // 0
+Glass gauntlet // Boosts strength, very fragile // glassworks // 0
+Glass Knuckles // One time use, very deadly // glassworks // 1 // 0 // 0 // 25
+Ring of Fire // Extremely strong drink, boosts drunkness // glassworks // 0
 
-Fermented Fossil // Throw at an enemy, single use // Museum // 20 // ranged // Single
-Echoing Bell // Loud enought to burst some ear drums // Museum // 15 // Ranged // Multiple Enemies
-Magic Dice // Roll between 10 - 20 does that much damage // Museum // 0 // Ranged // Single
+Fermented Fossil // Throw at an enemy, single use // Museum // 1 // 1 // 0 // 20
+Echoing Bell // Loud enought to burst some ear drums // Museum // 1 // 1 // 1 // 15
+Magic Dice // Boosts damage of next attack by random roll between 10 - 20 // Museum // 0
 
-Old Lottery Ticket // Gives you a random amount of money between (IDK) // chippy lane  // 0 // NA // NA
-Broken Phone Charger // Shocks the enemy // chippy lane // 0 // Not ranged // Single
-Fishnet // Traps the enemy ( or does x amount of damage) // chippy lane // Ranged // Multiple enemies
+Old Lottery Ticket // Gives you a random amount of money between (IDK) // chippy lane // 0
+Broken Phone Charger // Shocks the enemy // chippy lane // 1 // 0 // 0 // 5
+Fishnet // Traps the enemy ( or does x amount of damage) // chippy lane // 1 // 1 // 1 // 4
 
-Vip ticket // Shows your a vip, gives money // tgi fridays // 0 // NA // NA
-Umbrella Straw // Shove in enemies eye, single use // tgi fridays // 20 // Not ranged // Single 
-Charity Donation Jar // A moral dilemma, steal or not steal? // tgi fridays // 0 // NA // NA
+Vip ticket // Shows your a vip, gives money // tgi fridays // 0
+Umbrella Straw // Shove in enemies eye, single use // tgi fridays // 1 // 0 // 0 // 20 
+Charity Donation Jar // A moral dilemma, steal or not steal? // tgi fridays // 0
 
-Bottle Opener // Brutal weapon // prince of wales // 25 // Not ranged // Single 
-Cork Gun // Shoots corks // prince of wales // 20 // Ranged // Single
-Lighter // Burn enemies // prince of wales // 20 // Not ranged // Single
+Bottle Opener // Brutal weapon // prince of wales // 1 // 0 // 0 // 25 
+Cork Gun // Shoots corks // prince of wales // 1 // 1 // 0 // 20
+Lighter // Burn enemies // prince of wales // 1 // 0 // 0 // 20
 
-Microphone // Scream at enemies, deafens them // kiwis kareoke // 17 // Ranged // Multiple
-Peanuts // Strong against those with nut allegies // kiwi kareoke //  dependent // Ranged // Multiple
-Glass Bottle // Stab enemies // kiwi kareoke // 25 // Not ranged // Single
+Microphone // Scream at enemies, deafens them // kiwis kareoke // 1 // 1 // 1 // 17
+Peanuts // Strong against those with nut allergies // kiwi kareoke // 1 // 0 // 1 // 10
+Glass Bottle // Stab enemies // kiwi kareoke // 1 // 0 // 0 // 25
 
-Cleaning Supplies // Throw bleach at enemy // cardiff central // 17 // Ranged // Single
-Inspector's Whistle // Calls angry dogs that bite the enemy // cardiff central // 25 // Ranged // Multiple
+Cleaning Supplies // Throw bleach at enemy // cardiff central // 1 // 1 // 0 // 17
+Inspector's Whistle // Calls angry dogs that bite the enemy // cardiff central // 1 // 1 // 1 // 25
 
 
 
