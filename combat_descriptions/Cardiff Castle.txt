@@ -1,10 +1,10 @@
 Through the narrow arrowslits in the wall, you notice a crowd of angry knights storming towards you. You turn and run, but the grand metal gate slowly draws shut, trapping you in. On the far side of the castle you notice an opening in the wall - your only way out...\n\nAbove the entrance, two long iron swords are mounted in a cross. A crossbow rests to your right, alongside a quill of arrows. Up the twisting stone stairs, you glimspe a large wooden catapult, and a pile of rocks.
 
-12
+12 // 100
 
 Knight // The knights don rusted chainmail chestplates and iron helmets. Some hold long iron swords, others just a small dagger. They clump together in a group, moving methodically towards you. // 30
 
-20 // 0
+10 // 0
 
 Iron Sword // 30 // 0 // 0 // Crossbow // 20 // 1 // 0 // Catapult // 10 // 1 // 1
 
