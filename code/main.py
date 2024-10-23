@@ -5,10 +5,8 @@ import game
 game.initialise_variables()
 from map import *
 from items import *
-from event import *
 from player_class import *
 import string
-
 
 def update_time(mins):
     t = game.time
@@ -109,16 +107,14 @@ def execute_inside(inp):
         game.player.update_money(amount)
         if go_outside:
             done_inside()
+    elif t == "COMBAT":
+        pass
             
-
 def main():
     while True:
+        #game.trigger_encounter()
         if not game.inside:
-            e = Encounter()
-            if e.trigger_encounter(game.player.current_location.name):
-                e.trigger_encounter(game.player.current_location.name)
-            else:
-                print_menu()
+            print_menu()
             
             user_input = take_input()
             
@@ -126,11 +122,11 @@ def main():
         else:
             game.player.current_location.go_inside()
             
-            game.player.print_money()
+            #game.player.print_money()
             
-            user_input = take_input()
+            #user_input = take_input()
             
-            execute_inside(user_input)
+            #execute_inside(user_input)
 
 if __name__ == "__main__":
     main()

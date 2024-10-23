@@ -2,7 +2,7 @@ You end up on the pristine pitch of the Principality Stadium, the massive stands
 
 Rugby Player // The rugby players wears their international jerseys that stretches across their broad shoulders. Some are gripping corner flags and wearing scrum caps whilst other are in their metal-studded boots drumming across the pristine turf beneath the stadium lights. // 100
 
-number of enemies // 7
+7
 
 30 // CLOSE
 

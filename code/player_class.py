@@ -11,7 +11,7 @@ class Health:
         self.health += amount
 
     def load_attacks(self):
-        attacks_data = read_file("text/attacks.txt")
+        attacks_data = read_file(r"..\text\attacks.txt")
         attacks = {}
 
         for attack_info in attacks_data:
@@ -69,7 +69,7 @@ class Player:
         self.allocate_points()
 
     def initialise_stats(self):
-        data = read_file("text/stats_descriptions.txt")
+        data = read_file(r"..\text\stats_descriptions.txt")
         stats = {}
         for line in data:
             stats[line[0]] = Stat(line[0], line[1], line[2])
@@ -94,23 +94,22 @@ class Player:
             print()
 
             chosen_stat = input("Which stat would you like to increase? (Type 'reset' to reset points or 'cancel' to cancel) ").strip().lower()
-            if chosen_stat not in self.stats.keys():
-                print("Unrecognised stat")
-                continue
-            elif chosen_stat == 'reset':
+            
+            if chosen_stat == 'reset':
                 self.reset_allocation()
                 continue
             elif chosen_stat == 'cancel':
                 print("Exiting point allocation.")
                 return
-            elif {self.stats[chosen_stat].points} == 1: # 1 is max points
-                print("This stat is maxed out, enter another stat")
-            
             # Validate that stat exists immediately after input
-            if chosen_stat not in self.stats.keys() or chosen_stat == "drunkenness":
+            elif chosen_stat not in self.stats.keys() or chosen_stat == "drunkenness":
                 print("Invalid stat")
                 continue
-
+            
+            if {self.stats[chosen_stat].points} == 1: # 1 is max points
+                print("This stat is maxed out, enter another stat")
+                continue
+            
             # Get the amount to increment (catch non-float input)
             try:
                 increment = float(input("How many points would you like to add? "))
@@ -181,3 +180,6 @@ class Player:
             walk_time = round(walk_time)
             print("The walk took you", walk_time, "minutes.")
             return walk_time
+    
+    def take_damage(self, amount):
+        self.health.adjust_health(-amount)
