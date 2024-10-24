@@ -6,4 +6,4 @@ Security Guard // The security guards advance as one - a wall of navy uniforms a
 
 10 // 20
 
-Fossil // 5 // 1 // 0
+Fossil // 5 // 1 // 0 // Maggies Teapot // 15 // 0 // 1
