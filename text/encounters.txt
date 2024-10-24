@@ -1,22 +1,21 @@
 # FORMAT - description // npc // action 1 // action 2 // action 3 // outcome 1 // outcome 2 // outcome 3 // effect 1 // effect 2 // effect 3 
-# FORMAT - symbols (+ is used to increment, - is used to decrement, ! signals inventory , £ signals money, fight is used to start a fight scene)
 
-You find a chest // chest // open it // leave it // stab the chest // The chest bites you // You leave it // You kill the monster // - 0.1 health // none // £ + 20 
+You find a chest // chest // open it // leave it // stab the chest // The chest bites you // You leave it // You kill the monster // adjust_health - 10 // none // adjust_money + 20
 
-A jester appears doing a strange dance. He asks you to solve a riddle promising a reward if you answer correctly. // jester // accept // ignore // ask him for help // You solve the riddle and win a prize // He leaves you // He gets angry and walks away // + 0.1 intelligence // none // + 0.5 intelligence
+A jester appears doing a strange dance. He asks you to solve a riddle promising a reward if you answer correctly. // jester // accept // ignore // ask him for help // You solve the riddle and win a prize // He leaves you // He gets angry and walks away // adjust_stat intelligence + 0.1 // none // adjust_stat charisma - 0.1
 
-You hear whispers in the distance. // vampire // investigate // ignore // charge with your weapon // You come across vampires chatting, a fight begins // You ignore the whispers and nothing happens // You kill one of the vampires// fight // none // + 0.1 strength
+You hear whispers in the distance. // vampire // investigate // ignore // charge with your weapon // You come across vampires chatting, a fight begins // You ignore the whispers and nothing happens // You kill one of the vampires // fight // none // adjust_stat strength + 0.1
 
-A rowdy fan spills your drink. // fan // punch him // ignore him // kick him // You knock out the fan and get a free drink // You ignore him and nothing happens // He falls over and gets angry, leading to a fight // ! + beer // none // fight
+A rowdy fan spills your drink. // fan // punch him // ignore him // kick him // You knock out the fan and get a free drink // You ignore him and nothing happens // He falls over and gets angry, leading to a fight // add_to_inv beer // none // fight
 
-A man comes up to you saying he knows you. You remember him but are unsure of his name. // random_man // call him Harry // call him Ben // call him Callum // He hugs you and buys you a drink // He starts a fight with you // He starts a fight with you // ! + beer  // fight // fight
+A man comes up to you saying he knows you. You remember him but are unsure of his name. // random_man // call him Harry // call him Ben // call him Callum // He hugs you and buys you a drink // He starts a fight with you // He starts a fight with you // add_to_inv beer // fight // fight
 
-A homeless person approaches you and asks for £5 so that he can buy himself some lunch // homeless_man // accept // reject // punch // the homeless man takes your money and buys a beer // the homeless man swears at you // the homeless man is knocked out // £ -5 // none // + 0.1 strength
+A homeless person approaches you and asks for £5 so that he can buy himself some lunch // homeless_man // accept // reject // punch // the homeless man takes your money and buys a beer // the homeless man swears at you // the homeless man is knocked out // adjust_money - 5 // none // adjust_stat strength + 0.2
 
-A group of people are taking a photo // Move out the way // Photo bomb // Throw their phone // You move out the way // You get in a sick photo // They fight you // none // + 0.1 charisma // fight
+A group of people are taking a photo // none // Move out the way // Photo bomb // Throw their phone // You move out the way // You get in a sick photo // They fight you // none // adjust_stat strength + 0.1 // fight
 
-A dog approaches you. He says "No one will believe you " and leaves. // Chase the dog // Ignore the dog // Or re-evaluate life choices // fight // -0.1 Charisma // fight
+A dog approaches you. He says "No one will believe you" and leaves. // dog // Chase the dog // Ignore the dog // Or re-evaluate life choices // the dog chases you // blah blah // blah blah // fight // adjust_stat strength + 0.1 // fight
 
-A group of minions surround you asking for bananas // Give banana // Kick them // Run // They accept the banana graciously and magically heal you// They jump you // They chase you for a few seconds, but soon give up // + 0.2 health // - 0.4 health // none
+A group of minions surround you asking for bananas // minions // Give banana // Kick them // Run // They accept the banana graciously and magically heal you // They jump you // They chase you for a few seconds, but soon give up // adjust_health + 10 // adjust_health - 15 // none
 
-You see a miscellanious bottle on the floor // Drink it // Ignore it // Kick it // You feel stronger...// none // the bottle shatters onto your foot, cutting you // + 0.2 health // none // -0.2 health
+You see a miscellaneous bottle on the floor // none // Drink it // Ignore it // Kick it // You feel stronger // none // the bottle shatters onto your foot, cutting you // adjust_health + 20 // none // adjust_health - 20
