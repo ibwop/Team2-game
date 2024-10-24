@@ -9,6 +9,10 @@ class Health:
 
     def adjust_health(self, amount):
         self.health += amount
+        if self.health < 0:
+            self.health = 0
+        elif self.health > 100:
+            self.health = 100
 
     def load_attacks(self):
         attacks_data = read_file(r"..\text\attacks.txt")
@@ -90,7 +94,10 @@ class Player:
             print(f"Total allocated points: {self.total_allocated_points}")
             print()
             for stat_name, stat_obj in self.stats.items():
-                print(f"{stat_name}: {stat_obj.points}")
+                text = ""
+                for i in range(int(stat_obj.points*10)):
+                    text += "|"
+                print(f"{text} {stat_name.upper()}")
             print()
 
             chosen_stat = input("Which stat would you like to increase? (Type 'reset' to reset points or 'cancel' to cancel) ").strip().lower()
@@ -112,7 +119,7 @@ class Player:
             
             # Get the amount to increment (catch non-float input)
             try:
-                increment = float(input("How many points would you like to add? "))
+                increment = float(input("How many points would you like to add? ")) / 10
             except ValueError: 
                 print("Please enter a valid number for the increment.")
                 continue                  

@@ -144,8 +144,8 @@ class combat(location):
         self.enemy_data = {"name": data[2][0],
                            "description": data[2][1],
                            "health": int(data[2][2]),
-                           "damage": int(data[3][0]),
-                           "range": bool(int(data[3][1]))}
+                           "range_damage": int(data[3][0]),
+                           "close_damage": int(data[3][1])}
         self.items_inventory = []
         self.close_range = 30
         self.player_move_distance = 20
@@ -186,16 +186,17 @@ class combat(location):
         return user_input, options
     
     def execute_inside(self):
+        move_count = 0
         fighting = True
         while fighting:
             inp, options = self.take_input()
             if inp in options:
+                move_count += 1
                 self.execute_inp(inp)
                 if self.distance_to_enemies > self.close_range:
-                    if self.enemy_data["range"]:
-                        self.deal_to_player()
-                elif not self.enemy_data["range"]:
-                    self.deal_to_player()
+                    self.deal_to_player(self.enemy_data["range_damage"])
+                else:
+                    self.deal_to_player(self.enemy_data["close_damage"])
             else:
                 print("Not a valid command.")
             if len(self.enemies) == 0:
@@ -204,6 +205,7 @@ class combat(location):
             elif game.player.health.health <= 0:
                 fighting = False
                 self.lose()
+        print(move_count, "minutes")
     
     def win(self):
         print("YOU WON THE FIGHT.")
@@ -239,9 +241,6 @@ class combat(location):
                         self.use_weapon(item_to_use)
                     else:
                         print("You are too close to use this.")
-                        num_enemies = random.randint(0, (len(self.enemies)-1)/2)
-                        for i in range(num_enemies):
-                            game.player.take_damage(self.enemies[i].damage)
                 else:
                     if item_to_use.range:
                         self.use_weapon(item_to_use)
@@ -287,11 +286,11 @@ class combat(location):
         print(damage_to_deal, "damage dealt to", count, self.enemy_data["name"] + "(s).")
         print(dead_count, "enemies eliminated.")
     
-    def deal_to_player(self):
+    def deal_to_player(self, d):
         damage_dealt = 0
-        dmg = self.enemy_data["damage"] * (1 - game.player.stats["strength"].points / 2)
+        dmg = d * (1 - game.player.stats["strength"].points / 4)
         for enemy in self.enemies:
-            if random.randint(1,100) >= game.player.stats["luck"].points * 100:
+            if random.randint(1,100) >= (game.player.stats["luck"].points / 2) * 100:
                 game.player.take_damage(dmg)
                 damage_dealt += dmg
         print("\nYou just received", damage_dealt, "damage.", game.player.health.health, "remaining.")
@@ -310,8 +309,8 @@ class enemy:
         self.name = data["name"]
         self.description = data["description"]
         self.health = data["health"]
-        self.damage = data["damage"]
-        self.range = data["range"]
+        self.range_damage = data["range_damage"]
+        self.close_damage = data["close_damage"]
     
     def deal_damage(self, dmg):
         self.health -= dmg
