@@ -9,7 +9,6 @@ class item:
         self.description = data[1]
         self.location_found = data[2]
         self.is_weapon = bool(int(data[3]))
-        print(self.is_weapon)
         if self.is_weapon:
             self.range = bool(int(data[4]))
             self.group = bool(int(data[5]))

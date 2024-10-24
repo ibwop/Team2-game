@@ -1,8 +1,14 @@
 import random
-from file_manager import *
+from enum import Enum
 from dataclasses import dataclass
+from file_manager import read_file  # Assuming you have this function
 
 EXCLUDED_LOCATIONS = {"Central Bar", "Safe House"}
+
+class ActionEnum(Enum):
+    ACTION_1 = 0
+    ACTION_2 = 1
+    ACTION_3 = 2
 
 @dataclass
 class EncounterData:
@@ -12,94 +18,128 @@ class EncounterData:
     outcomes: list
     effects: list
 
-class Encounter():
+class EncounterManager:
     def __init__(self):
-        self.count = 0
-        self.encounters = self.create_encounters()  # Store encounters once
+        self.encounters = self._load_encounters()
+        self.cooldown_count = 0
 
-    def create_encounters(self):
-        """Reads encounter data and returns a numbered dictionary of encounters"""
-        encounter_data = read_file("text/encounters.txt")
+    def _load_encounters(self):
+        """Load and parse encounter data from file."""
+        raw_data = read_file(r"..\text\encounters.txt")
         encounters_dict = {}
 
-        for index, encounter in enumerate(encounter_data):
-            encounters_dict[index] = EncounterData(
-                description=encounter[0],
-                npc=encounter[1],
-                actions=encounter[2:5],
-                outcomes=encounter[5:8],
-                effects=encounter[8:11]
-            )
+        for index, encounter in enumerate(raw_data):
+            try:
+                encounters_dict[index] = EncounterData(
+                    description=encounter[0],
+                    npc=encounter[1],
+                    actions=encounter[2:5],
+                    outcomes=encounter[5:8],
+                    effects=encounter[8:11]
+                )
+            except (IndexError, ValueError) as e:
+                print(f"Skipping encounter {index} due to error: {e}")
 
         return encounters_dict
 
-    def random_encounter(self, location):
-        """Generates a random encounter"""
+    def can_trigger_encounter(self, location):
+        """Checks if an encounter can be triggered based on location and cooldown."""
         if location in EXCLUDED_LOCATIONS:
-            return
-        print(location)
-
-        if not self.encounters:  # Check if there are any encounters left
-            return
-
-        # Choose a random encounter
-        encounter_choice_key = random.choice(list(self.encounters.keys()))
-        encounter_choice = self.encounters[encounter_choice_key]
-
-        description = encounter_choice.description
-        actions = encounter_choice.actions
-        outcomes = encounter_choice.outcomes
-
-        # Display the encounter
-        print(f"{description}\n1) {actions[0]}\n2) {actions[1]}\n3) {actions[2]}")
-        action = input("Choose an action (1-3): ")
-
-        # Handle the player's choice
-        if action == '1':
-            self.handle_outcome(outcomes[0])
-        elif action == '2':
-            self.handle_outcome(outcomes[1])
-        elif action == '3':
-            self.handle_outcome(outcomes[2])
-        else:
-            print("Action not recognized, please retry")
-        
-        # Remove the encounter from the list after it has been used
-        del self.encounters[encounter_choice_key]
-
-    def handle_outcome(self, outcome):
-        """Handles the outcome of a selected action"""
-        print()
-        print(outcome)
-        print()
-
-    def handle_effect(self, effect, game):
-        """Handles applying the effects to the player's stats or inventory."""
-        if effect:
-            effect_parts = effect.split(',') 
-            for part in effect_parts:
-                part = part.strip()
-                if part.startswith('+') or part.startswith('-'):  # Check if it's an adjustment
-                    sign = part[0]
-                    amount = float(part[1:])
-                    if "health" in part:
-                        pass
-                    elif part.startswith('!') or part.startswitith('£'):
-                        game.player.inc_points(part)
-                    elif part.startswith('!'):
-                        item = part[0]
-                        game.player.add_to_inventory(item)
-                    elif part.startswith('£')
-                        game.player.adjust_money(part)
-                    
-               
-
-    def trigger_encounter(self, location):
-        """Randomly triggers encounters (20% chance)"""
-        if self.count > 0:
-            self.count -= 1
             return False
-        if random.random() < 0.4:  
-            self.count = 3
-            self.random_encounter(location)
-        return False
+        if self.cooldown_count > 0:
+            self.cooldown_count -= 1
+            return False
+        return random.random() < 0.9
+
+    def trigger_random_encounter(self, location, game):
+        """Triggers a random encounter if conditions are met."""
+        if not self.can_trigger_encounter(location):
+            return False
+        
+        self.cooldown_count = 3
+        encounter_key = random.choice(list(self.encounters.keys()))
+        encounter = self.encounters.pop(encounter_key)
+
+        print(f"Encounter: {encounter.description}")
+        self.display_actions(encounter)
+        player_choice = self.get_player_action()
+
+        self.process_outcome(encounter, player_choice, game)
+        return True
+
+    def display_actions(self, encounter):
+        """Displays available actions for the encounter."""
+        for i, action in enumerate(encounter.actions, start=1):
+            print(f"{i}) {action}")
+
+    def get_player_action(self):
+        """Gets a valid player action input."""
+        while True:
+            choice = input("Choose an action (1-3): ")
+            if choice in {'1', '2', '3'}:
+                return ActionEnum(int(choice) - 1)
+            print("Invalid input. Please choose a valid action.")
+
+    def process_outcome(self, encounter, player_choice, game):
+        """Processes the chosen action's outcome and effect."""
+        outcome = encounter.outcomes[player_choice.value]  # Use .value to access the correct outcome
+        print()
+        print(f"{outcome}")
+        print()
+
+        # Check if there are enough effects for the player choice
+        if len(encounter.effects) > player_choice.value:
+            effect = encounter.effects[player_choice.value]  # Use .value for effects as well
+            if effect and effect != "none":  # Apply effect only if it's not empty or "none"
+                self.apply_effect(effect, game)
+            else:
+                print("No effect to apply for this action.")
+        else:
+            print(f"No effect available for the chosen action {player_choice.value + 1}.")
+
+
+    def apply_effect(self, effect, game):
+        """Applies the effect from the encounter."""
+        # Split effect string into components
+        effect_parts = effect.split()
+        effect_name = effect_parts[0]
+
+        # Apply different effects based on the effect type
+        if effect_name == "adjust_stat":
+            stat_name = effect_parts[1]
+            sign = effect_parts[2]
+            amount = float(effect_parts[3])
+            game.player.adjust_stat(stat_name, amount)
+            print(f'Your {stat_name} has been increased by {amount} points, new value: {game.player.stats[stat_name].points}')
+
+        elif effect_name == "add_to_inv":
+            item_name = effect_parts[1]
+            if item_name in game.item_list:
+                item_object = game.item_list[item_name]
+                game.player.add_to_inventory(item_object)
+                print(f"{item_name} has been added to your inventory")
+            else:
+                print(f"Item {item_name} not found in game item list.")
+
+        elif effect_name == "adjust_money":
+            sign = effect_parts[1]
+            amount = int(effect_parts[2])
+            game.player.update_money(amount if sign == "+" else -amount)
+            print(f"You gained £{amount}. Your new balance is {game.player.money}")
+
+        elif effect_name == "adjust_health":
+            sign = effect_parts[1]
+            amount = int(effect_parts[2])
+            game.player.health.adjust_health(amount if sign == "+" else -amount)
+            if sign == "+":
+                print(f"You have gained {amount} health, your new health is {game.player.health.health}")
+            elif sign == "-":
+                print(f"You have lost {amount} health, your new health is {game.player.health.health}")
+
+        else:
+            print(f"Unrecognized effect: {effect}")
+
+    def _start_fight(self, game):
+        """Starts a fight sequence."""
+        print("Fight initiated!")
+        # Trigger fight logic here

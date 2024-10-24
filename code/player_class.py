@@ -54,6 +54,7 @@ class Stat:  # float between 0 and 1, used as a multiplier in calculations
             self.points = potential_new_value
             return 0  # No excess points
         
+        
     def reset(self):
         self.points = self.initial_value
 
@@ -74,6 +75,11 @@ class Player:
         for line in data:
             stats[line[0]] = Stat(line[0], line[1], line[2])
         return stats
+    
+    def adjust_stat(self, name, amount):
+        if name in self.stats:
+            stat_obj = self.stats[name]
+            stat_obj.points += amount
 
     def allocate_points(self):
         print("Choose your character's stats:")
@@ -86,38 +92,45 @@ class Player:
         print()  # Extra line for better spacing
 
         while self.available_points > 0:
-            print(f"You have {self.available_points} point left to allocate")
+            print(f"You have {self.available_points} point{'s' if self.available_points > 1 else ''} left to allocate")
             print(f"Total allocated points: {self.total_allocated_points}")
             print()
             for stat_name, stat_obj in self.stats.items():
                 print(f"{stat_name}: {stat_obj.points}")
             print()
 
-            chosen_stat = input("Which stat would you like to increase? (Type 'reset' to reset points or 'cancel' to cancel) ").strip().lower()
+            chosen_stat = input("Which stat would you like to increase? (Type 'reset' to reset points) ").strip().lower()
             
             if chosen_stat == 'reset':
                 self.reset_allocation()
                 continue
-            elif chosen_stat == 'cancel':
-                print("Exiting point allocation.")
-                return
             # Validate that stat exists immediately after input
             elif chosen_stat not in self.stats.keys() or chosen_stat == "drunkenness":
                 print("Invalid stat")
                 continue
             
-            if {self.stats[chosen_stat].points} == 1: # 1 is max points
+            if self.stats[chosen_stat].points == 1:  # 1 is max points
                 print("This stat is maxed out, enter another stat")
                 continue
             
-            # Get the amount to increment (catch non-float input)
+            # Ask the user how many points they want to allocate
+            increment = input(f"How many points would you like to add to {chosen_stat}? (Type 'cancel' to go back and select another stat) ").strip().lower()
+            
+            if increment == 'cancel':
+                print("Cancelled point allocation. Choose another stat.")
+                continue  # Allow the player to choose a different stat
+            
+            # Handle invalid input for point increment
             try:
-                increment = float(input("How many points would you like to add? "))
-            except ValueError: 
+                increment = float(increment)  # Convert the valid input to a float
+                if increment < 0:
+                    print("Positive values only")
+                    continue
+            except ValueError:
                 print("Please enter a valid number for the increment.")
-                continue                  
+                continue
 
-            if increment <= self.available_points: # if the increment is higher than our points
+            if increment <= self.available_points:  # Ensure they have enough points
                 error_message = self.stats[chosen_stat].inc_points(increment)
                 if isinstance(error_message, str):  # Check if an error message was returned
                     print(error_message)  # Print the error message
@@ -130,6 +143,9 @@ class Player:
                         print(f"{chosen_stat} successfully incremented by {increment}, new value is {self.stats[chosen_stat].points}")
             else:
                 print("You don't have enough points to increase the stat by that much")
+
+        print("All points allocated. You may now proceed with the game.")
+
 
     def reset_allocation(self):
         for stat in self.stats.values():

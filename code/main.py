@@ -5,6 +5,7 @@ import game
 game.initialise_variables()
 from map import *
 from items import *
+from event import *
 from player_class import *
 import string
 
@@ -46,7 +47,7 @@ def print_menu():
     print("GO INSIDE")
     game.player.current_location.print_exits()
 
-def remove_punct(text): #removes punctuation from the user input
+def remove_punct(text):  # removes punctuation from the user input
     new_text = ""
     for char in text:
         if char not in string.punctuation:
@@ -54,17 +55,17 @@ def remove_punct(text): #removes punctuation from the user input
     return new_text
 
 def take_input():    
-    #take users input and make lower case
+    # Take user input and make lower case
     if game.inside and (game.player.current_location.type == "PUB" or game.player.current_location.type == "SHOP"):
         user_input = input("What would you like to buy?\n").lower()
     else:
         user_input = input("What would you like to do?\n").lower()
     
-    #remove punct and white space
+    # Remove punctuation and white space
     user_input = remove_punct(user_input)
     user_input = user_input.strip()
     
-    #turn into list of individual words
+    # Turn into a list of individual words
     words = user_input.split()
     
     return words
@@ -74,8 +75,8 @@ def execute_go(inp):
         if inp[1] == "inside":
             game.inside = True
         elif is_valid_exit(game.player.current_location, inp[1]):
-            update_time(game.player.get_travel_time(inp[0])) # randomise the time taken to walk between the two locations (based on stats)
-            # randomise if player encounters an NPC en route
+            update_time(game.player.get_travel_time(inp[0]))  # randomize the time taken to walk between the two locations (based on stats)
+            # Randomize if player encounters an NPC en route
             game.player.move_location(inp[1])
             print(game.player.current_location.name)
         else:
@@ -85,10 +86,14 @@ def execute_go(inp):
 
 def execute_input(inp):
     action_words = ["go", "take", "pick up"]
-    if inp[0] in action_words:
+    if not inp:
+        print("Please enter an action")
+        return
+    elif inp[0] in action_words:
         word = inp[0].lower()
         if word == "go" or word == "take":
             execute_go(inp)
+
 
 def done_inside():
     game.inside = False
@@ -111,25 +116,27 @@ def execute_inside(inp):
         pass
             
 def main():
+    e = EncounterManager()
     while True:
-        #game.trigger_encounter()
         if not game.inside:
+            # Check for a random encounter using EncounterManager
+            if e.trigger_random_encounter(game.player.current_location.name, game):
+                # An encounter has occurred, processing is handled within the EncounterManager
+                continue
+
+            # If no encounter, print the menu
             print_menu()
             
+            # Take player input and process it
             user_input = take_input()
-            
             execute_input(user_input)
         else:
             game.player.current_location.go_inside()
             
-            done_inside()
+            game.player.print_money()
             
-            #game.player.print_money()
-            
-            #user_input = take_input()
-            
-            #execute_inside(user_input)
+            user_input = take_input()
+            execute_inside(user_input)
 
 if __name__ == "__main__":
     main()
-    
