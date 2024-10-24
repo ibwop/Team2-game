@@ -71,7 +71,6 @@ class Pub(location):
         
         return menu
 
-    
     def print_menu(self):
         for item in self.menu.values():
             if item.type == "FOOD":
@@ -140,9 +139,17 @@ class combat(location):
         location.__init__(self, n, t, e, d)
         data = read_file(os.path.join(r"..\combat_descriptions", self.name + ".txt"))
         self.fight_description = data[0][0]
-        self.distance_to_enemies = 100
-        self.enemy_data = data[2] + data[3]
+        self.max_distance = int(data[1][1])
+        self.distance_to_enemies = int(data[1][1])
+        self.enemy_data = {"name": data[2][0],
+                           "description": data[2][1],
+                           "health": int(data[2][2]),
+                           "range_damage": int(data[3][0]),
+                           "close_damage": int(data[3][1])}
         self.items_inventory = []
+        self.close_range = 30
+        self.player_move_distance = 20
+        self.enemy_move_distance = 10
         i = 0
         while i < len(data[4]):
             self.items_inventory.append(weapon(data[4][i], data[4][i+1], data[4][i+2], data[4][i+3]))
@@ -161,21 +168,44 @@ class combat(location):
             enemies.append(enemy(self.enemy_data))
         return enemies
     
+    def take_input(self):
+        print("\nThe", len(self.enemies), self.enemy_data["name"] + "(s) are", self.distance_to_enemies, "metres away.\n")
+        options = []
+        if self.distance_to_enemies > 0:
+            options.append("move closer")
+        if self.distance_to_enemies < self.max_distance:
+            options.append("move away")
+        for item in self.items_inventory:
+            options.append("pick up " + item.name.lower())
+        for item in game.player.inventory:
+            options.append("use " + item.name.lower())
+            options.append("drop " + item.name.lower())
+        for o in options:
+            print(o.upper())
+        user_input = self.normalise_input(input("What would you like to do?\n"))
+        return user_input, options
+    
     def execute_inside(self):
+        move_count = 0
         fighting = True
         while fighting:
             inp, options = self.take_input()
             if inp in options:
+                move_count += 1
                 self.execute_inp(inp)
-                self.update_distance_to_enemies(-5)
+                if self.distance_to_enemies > self.close_range:
+                    self.deal_to_player(self.enemy_data["range_damage"])
+                else:
+                    self.deal_to_player(self.enemy_data["close_damage"])
             else:
-                print("You cannot do that.")
+                print("Not a valid command.")
             if len(self.enemies) == 0:
                 fighting = False
                 self.win()
             elif game.player.health.health <= 0:
                 fighting = False
                 self.lose()
+        print(move_count, "minutes")
     
     def win(self):
         print("YOU WON THE FIGHT.")
@@ -189,9 +219,11 @@ class combat(location):
         words = inp.split()
         if words[0] == "move":
             if words[1] == "closer":
-                self.update_distance_to_enemies(-20)
+                self.update_distance_to_enemies(-self.player_move_distance)
+                return
             else:
-                self.update_distance_to_enemies(20)
+                self.update_distance_to_enemies(self.player_move_distance)
+                return
         elif words[0] == "pick":
             for item in self.items_inventory:
                 if item.name.lower() in inp:
@@ -204,14 +236,11 @@ class combat(location):
                     item_to_use = item
                     break
             if item_to_use.is_weapon:
-                if self.distance_to_enemies <= 30:
+                if self.distance_to_enemies <= self.close_range:
                     if not item_to_use.range:
                         self.use_weapon(item_to_use)
                     else:
                         print("You are too close to use this.")
-                        num_enemies = random.randint(0, (len(self.enemies)-1)/2)
-                        for i in range(num_enemies):
-                            game.player.take_damage(self.enemies[i].damage)
                 else:
                     if item_to_use.range:
                         self.use_weapon(item_to_use)
@@ -225,18 +254,19 @@ class combat(location):
                     game.player.inventory.remove(item)
                     self.inventory_items.append(item)
                     break
+        self.update_distance_to_enemies(-self.enemy_move_distance)
     
     def update_distance_to_enemies(self, change):
         self.distance_to_enemies += change
         if self.distance_to_enemies < 0:
             self.distance_to_enemies = 0
-        elif self.distance_to_enemies > 100:
-            self.distance_to_enemies = 100
-        print("The", len(self.enemies), self.enemy_data[0] + "(s) are", self.distance_to_enemies, "metres away.")
+        elif self.distance_to_enemies > self.max_distance:
+            self.distance_to_enemies = self.max_distance
     
     def use_weapon(self, item_to_use):
         damage_to_deal = item_to_use.damage * game.player.stats["strength"].points
         count = 0
+        dead_count = 0
         if item_to_use.group:
             dead_enemies = []
             for enemy in self.enemies:
@@ -245,12 +275,25 @@ class combat(location):
                     dead_enemies.append(enemy)
             for enemy in dead_enemies:
                 self.enemies.remove(enemy)
+                dead_count += 1
         else:
             enemy = self.enemies[random.randint(0,len(self.enemies)-1)]
             count += 1
             if enemy.deal_damage(damage_to_deal):
                 self.enemies.remove(enemy)
-        print(damage_to_deal, "damage dealt to", count, self.enemy_data[0] + "(s).")
+                dead_count += 1
+        print()
+        print(damage_to_deal, "damage dealt to", count, self.enemy_data["name"] + "(s).")
+        print(dead_count, "enemies eliminated.")
+    
+    def deal_to_player(self, d):
+        damage_dealt = 0
+        dmg = d * (1 - game.player.stats["strength"].points / 4)
+        for enemy in self.enemies:
+            if random.randint(1,100) >= (game.player.stats["luck"].points / 2) * 100:
+                game.player.take_damage(dmg)
+                damage_dealt += dmg
+        print("\nYou just received", damage_dealt, "damage.", game.player.health.health, "remaining.")
     
     def normalise_input(self, inp):
         inp = inp.strip()
@@ -261,34 +304,17 @@ class combat(location):
                 new_txt += char
         return new_txt
     
-    def take_input(self):
-        options = []
-        if self.distance_to_enemies > 30:
-            options.append("move closer")
-        else:
-            options.append("move away")
-        for item in self.items_inventory:
-            options.append("pick up " + item.name.lower())
-        for item in game.player.inventory:
-            options.append("use " + item.name.lower())
-            options.append("drop " + item.name.lower())
-        for o in options:
-            print(o.upper())
-        user_input = self.normalise_input(input("What would you like to do?\n"))
-        return user_input, options
-    
 class enemy:
     def __init__(self, data):
-        self.name = data[0]
-        self.description = data[1]
-        self.health = float(data[2])
-        self.damage = int(data[3])
-        self.range = bool(int(data[4]))
+        self.name = data["name"]
+        self.description = data["description"]
+        self.health = data["health"]
+        self.range_damage = data["range_damage"]
+        self.close_damage = data["close_damage"]
     
     def deal_damage(self, dmg):
         self.health -= dmg
         if self.is_dead():
-            print("ENEMY DEAD")
             return True
         return False
     

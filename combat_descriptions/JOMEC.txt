@@ -1,11 +1,9 @@
 You find yourself on the second floor of the JOMEC building in Cardiff, clutching your laptop charger as you eye the group of disgruntled lecturers advancing toward you. A pile of thick textbooks sits precariously near the balcony's edge, and you notice the atrium below is empty. The lecturers, armed with red marking pens and failed assignments, spread out to surround you.
 
-5
+5 // 50
 
 Lecturer // The lecturers are clad in tweed jackets and sensible shoes. Some hold marking pens held like daggers, others hold rolled-up course handbooks gripped like batons, and tablets brandished as shields. They block the exits and advance towards your position. // 25
 
-#drop books off balcony
+15 // 5
 
-5 // 1
-
-Laptop Charger // 20 // 0 // 0
+Laptop Charger // 20 // 0 // 0 // Textbook // 15 // 1 // 0 // Pen // 5 // 0 // 0 // Fire Extinguisher // 10 // 1 // 1

@@ -1,9 +1,9 @@
 You end up on the pristine pitch of the Principality Stadium, the massive stands towering empty around you. A group of burly rugby players emerges from the tunnel, their expressions suggesting this isn't a friendly encounter. The floodlights cast long shadows as the players spread out in a familiar defensive formation, blocking your path to the nearest exit. You quickly scan your surroundings and see near the try line, a match-worn rugby ball sits abandoned on a kicking tee. You also see, by the touchline, a kit bag has spilled open, revealing several pairs of studded boots.
 
-7
+15 // 100
 
-Rugby Player // The rugby players wears their international jerseys that stretches across their broad shoulders. Some are gripping corner flags and wearing scrum caps whilst other are in their metal-studded boots drumming across the pristine turf beneath the stadium lights. // 100
+Rugby Player // The rugby players wear their international jerseys, stretched across their broad shoulders. Some are gripping corner flags and wearing scrum caps whilst other are in their metal-studded boots drumming across the pristine turf beneath the stadium lights. // 50
 
-30 // 0
+10 // 20
 
-Rugby Ball // 5 // 1 // 0 // Studded Boots // 15 // 0 // 0
+Exploding Rugby Ball // 15 // 1 // 1 // Studded Boots // 25 // 0 // 0 // Scrum Cap Headbutt // 50 // 0 // 0

@@ -1,6 +1,6 @@
 # FORMAT - title = location_name
 # description of fight / enemies
-# num_enemies
+# num_enemies // distance from enemies
 # enemy_name // description (including info about weaknesses) // health
-# enemy_damage // range
-# item_1 // damage // range (CLOSE, FAR) // group? (TRUE/FALSE)
+# enemy_range_damage // enemy_close_damage
+# item_1 // damage // range (True / False, Far = True) // group? (TRUE/FALSE)

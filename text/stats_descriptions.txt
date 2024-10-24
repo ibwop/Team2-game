@@ -1,7 +1,5 @@
 # FORMAT - name // description // starting_value
 
-health // How fast a player loses health // 0.5
-
 drunkenness // How fast a player becomes drunk // 0.5
 
 strength // Increases players base damage // 0.5

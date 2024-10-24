@@ -20,10 +20,9 @@ Bartender's Coaster // Doubles effect of drink drunk on it // the gatekeeper // 
 
 Clearance Protein // Boosts strength // Boots // 0
 
-Rugby Ball // Distracts rugby players // Principality // 0
-Scrum Cap // doubles headbutt damage // Principality // 1 // 0 // 0 // 15
-Togs // Kicks are brutal // Principality // 1 // 0 // 0 // 12
-Energy Drink // Makes the player super fast, saves time when moving // Principality // 0
+#Rugby Ball // Distracts rugby players // Principality Stadium // 0
+Togs // Kicks are brutal // Principality Stadium // 1 // 0 // 0 // 12
+Energy Drink // Makes the player super fast, saves time when moving // Principality Stadium // 0
 
 Glass Slipper's // Boosts charisma // glassworks // 0
 Glass rose // Can woo a barmaid // glassworks // 0
