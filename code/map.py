@@ -375,7 +375,13 @@ class shop_item:
             self.damage = float(data[8])
     
     def buy(self):
-        print("You have bought", self.name)
+        charisma_discount = max(0.5, 1 - game.player.stats.charisma.points * 0.1)
+        self.price = self.price * charisma_discount
+        if game.player.money - self.price >= 0:
+            print("You have bought", self.name)
+        else:
+            print("You don't have enough money to buy this item")
+            return
     
     # potential uses of items
     # REDUCE DRUNKENNES, INCREASE HEALTH, INCREASE LUCK, ...

@@ -2,6 +2,7 @@ import random
 from enum import Enum
 from dataclasses import dataclass
 from file_manager import read_file  # Assuming you have this function
+from map import *
 
 EXCLUDED_LOCATIONS = {"Central Bar", "Safe House"}
 
@@ -49,7 +50,7 @@ class EncounterManager:
         if self.cooldown_count > 0:
             self.cooldown_count -= 1
             return False
-        return random.random() < 0.9
+        return random.random() < 0.4
 
     def trigger_random_encounter(self, location, game):
         """Triggers a random encounter if conditions are met."""
@@ -82,20 +83,16 @@ class EncounterManager:
 
     def process_outcome(self, encounter, player_choice, game):
         """Processes the chosen action's outcome and effect."""
-        outcome = encounter.outcomes[player_choice.value]  # Use .value to access the correct outcome
+        outcome = encounter.outcomes[player_choice.value]  
         print()
         print(f"{outcome}")
         print()
 
         # Check if there are enough effects for the player choice
         if len(encounter.effects) > player_choice.value:
-            effect = encounter.effects[player_choice.value]  # Use .value for effects as well
+            effect = encounter.effects[player_choice.value]  
             if effect and effect != "none":  # Apply effect only if it's not empty or "none"
                 self.apply_effect(effect, game)
-            else:
-                print("No effect to apply for this action.")
-        else:
-            print(f"No effect available for the chosen action {player_choice.value + 1}.")
 
 
     def apply_effect(self, effect, game):
@@ -106,19 +103,27 @@ class EncounterManager:
 
         # Apply different effects based on the effect type
         if effect_name == "adjust_stat":
+
             stat_name = effect_parts[1]
             sign = effect_parts[2]
             amount = float(effect_parts[3])
+
+            current_amount = game.player.stats[stat_name].points
+            if current_amount + amount > 1:
+                return
+            
             game.player.adjust_stat(stat_name, amount)
             print(f'Your {stat_name} has been increased by {amount} points, new value: {game.player.stats[stat_name].points}')
 
         elif effect_name == "add_to_inv":
-            item_name = effect_parts[1]
-            if item_name in game.item_list:
-                item_object = game.item_list[item_name]
-                game.player.add_to_inventory(item_object)
-                print(f"{item_name} has been added to your inventory")
+            # Join parts of the effect to get the item name
+            item_name = " ".join(effect_parts[1:]).rstrip()
+            
+            # Check if the item name exists in the items_list dictionary
+            if item_name in game.items_list:
+                game.player.add_to_inventory(game.items_list[item_name])
             else:
+                print(game.items_list)
                 print(f"Item {item_name} not found in game item list.")
 
         elif effect_name == "adjust_money":
@@ -128,8 +133,11 @@ class EncounterManager:
             print(f"You gained £{amount}. Your new balance is {game.player.money}")
 
         elif effect_name == "adjust_health":
+            current_health = game.player.health.health
             sign = effect_parts[1]
             amount = int(effect_parts[2])
+            if current_amount + amount > 100:
+                print("Your health is at it's maximum value")
             game.player.health.adjust_health(amount if sign == "+" else -amount)
             if sign == "+":
                 print(f"You have gained {amount} health, your new health is {game.player.health.health}")
@@ -140,6 +148,6 @@ class EncounterManager:
             print(f"Unrecognized effect: {effect}")
 
     def _start_fight(self, game):
-        """Starts a fight sequence."""
-        print("Fight initiated!")
-        # Trigger fight logic here
+        c = combat(game.player.current_location)
+        
+       

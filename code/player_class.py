@@ -161,15 +161,18 @@ class Player:
         self.total_allocated_points = 0  # Reset total allocated points
         print("All points have been reset.")
 
-    def add_to_inventory(self, item):
-        if item not in items_list:
-            if self.current_location.type == "SHOP":
-                self.inventory.append(item)
-            else:
-                raise KeyError("Item doesn't exist")
+    def add_to_inventory(self, item_obj):
+        
+        # Ensure that the item doesn't already exist in the player's inventory
+        if str(item_obj.name) not in [item.name for item in self.inventory]:
+            # Remove shop check, as items should be able to be added from any location
+            self.inventory.append(item_obj)
+            print(f"{item_obj.name} has been added to your inventory.")
         else:
-            self.inventory.append(items_list[item])
-            print(f"{item} has been added to your inventory.")
+            # Item already exists in player's inventory
+            print(f"{item_obj.name} is already in your inventory.")
+
+
     
     def print_inventory(self):
         print("You have:")
